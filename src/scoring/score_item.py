@@ -2,6 +2,11 @@
 from datetime import datetime, timezone
 
 
+# Constants
+BUDGET_MULTIPLIER = 10
+SECONDS_PER_DAY = 86400.0
+
+
 def apply_source_weighting(source, source_weights):
     """
     Apply source weighting based on the source string.
@@ -39,7 +44,7 @@ def score_item(item, config):
     weights = config.get("weights", {})
     now = datetime.now(timezone.utc)
     days_window = config.get("days_window", 30)
-    text = (item.get("title","") + " " + item.get("summary","")).lower()
+    text = (item.get("title", "") + " " + item.get("summary", "")).lower()
     keywords = [k.lower() for k in config.get("keywords", [])]
     if keywords:
         matches = sum(1 for k in keywords if k in text)
@@ -51,13 +56,13 @@ def score_item(item, config):
     if bval is None:
         budget_score = 0.0
     else:
-        top = max(min_budget * 10, min_budget + 1)
+        top = max(min_budget * BUDGET_MULTIPLIER, min_budget + 1)
         budget_score = min(max((bval - min_budget) / (top - min_budget), 0.0), 1.0)
     pub = item.get("published_utc")
     if not pub:
         recency_score = 0.0
     else:
-        age_days = (now - pub).total_seconds() / 86400.0
+        age_days = (now - pub).total_seconds() / SECONDS_PER_DAY
         recency_score = max(0.0, min(1.0, (days_window - age_days) / days_window))
     source_score = apply_source_weighting(item.get("source", ""), config.get("source_weights", {}))
     kw_w = float(weights.get("keyword", 0.45) or 0)
