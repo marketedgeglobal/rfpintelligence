@@ -62,6 +62,7 @@ REGION_GROUP_TERMS = {
         "north africa",
         "afghanistan",
         "pakistan",
+        "iraq",
         "menap",
     ],
     "SAR": [
@@ -77,6 +78,11 @@ REGION_GROUP_TERMS = {
         "ssa",
         "sahara",
     ],
+}
+
+
+COUNTRY_TO_REGION_GROUP = {
+    "iraq": "MENAP",
 }
 
 
@@ -173,6 +179,12 @@ def get_matched_region_groups(text: str, configured_regions: List[Any]) -> Set[s
             if re.search(rf"\b{re.escape(term.lower())}\b", text_lower):
                 matched_groups.add(group)
                 break
+
+    for country, group in COUNTRY_TO_REGION_GROUP.items():
+        if group not in configured_groups:
+            continue
+        if re.search(rf"\b{re.escape(country)}\b", text_lower):
+            matched_groups.add(group)
 
     return matched_groups
 
@@ -602,6 +614,7 @@ def filter_entries(
     counters = diagnostics if diagnostics is not None else {}
     counters.setdefault('dropped_age', 0)
     counters.setdefault('dropped_invalid_date', 0)
+    counters.setdefault('dropped_region', 0)
     counters.setdefault('region_matched', 0)
     counters.setdefault('region_unmatched', 0)
     
@@ -621,6 +634,7 @@ def filter_entries(
 
         configured_regions = config.get('regions', [])
         configured_region_labels = extract_region_labels(configured_regions)
+        strict_region_filter = bool(config.get('strict_region_filter', False))
         if configured_region_labels:
             text = f"{entry.get('title', '')} {entry.get('description', '')}"
             matched_region_groups = get_matched_region_groups(text, configured_region_labels)
@@ -633,6 +647,9 @@ def filter_entries(
                     counters['region_matched'] += 1
                 else:
                     counters['region_unmatched'] += 1
+                    if strict_region_filter:
+                        counters['dropped_region'] += 1
+                        continue
             else:
                 entry['matched_regions'] = sorted(matched_region_groups)
                 counters['region_matched'] += 1
@@ -883,6 +900,7 @@ def generate_markdown_output(
         f"- **Selected top results:** {metrics.get('selected', len(entries))}",
         f"- **Dropped by age:** {metrics.get('dropped_age', 0)}",
         f"- **Dropped by invalid date:** {metrics.get('dropped_invalid_date', 0)}",
+        f"- **Dropped by region:** {metrics.get('dropped_region', 0)}",
         f"- **Region matched (annotated):** {metrics.get('region_matched', 0)}",
         f"- **Region unmatched (kept):** {metrics.get('region_unmatched', 0)}",
         "",
@@ -1002,6 +1020,7 @@ def main():
         "Filtering diagnostics: "
         f"dropped_age={filter_diagnostics.get('dropped_age', 0)}, "
         f"dropped_invalid_date={filter_diagnostics.get('dropped_invalid_date', 0)}, "
+        f"dropped_region={filter_diagnostics.get('dropped_region', 0)}, "
         f"region_matched={filter_diagnostics.get('region_matched', 0)}, "
         f"region_unmatched={filter_diagnostics.get('region_unmatched', 0)}"
     )
@@ -1032,6 +1051,7 @@ def main():
         'selected': selected_count,
         'dropped_age': filter_diagnostics.get('dropped_age', 0),
         'dropped_invalid_date': filter_diagnostics.get('dropped_invalid_date', 0),
+        'dropped_region': filter_diagnostics.get('dropped_region', 0),
         'region_matched': filter_diagnostics.get('region_matched', 0),
         'region_unmatched': filter_diagnostics.get('region_unmatched', 0),
     }

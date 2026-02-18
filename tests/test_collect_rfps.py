@@ -456,6 +456,74 @@ class TestRegionFiltering:
         assert diagnostics['region_matched'] == 1
         assert diagnostics['region_unmatched'] == 1
 
+    def test_filter_entries_drops_unmatched_when_strict_region_filter_enabled(self):
+        """Test strict region filtering excludes entries without region matches."""
+        config = {
+            'regions': [
+                'East Asia and Pacific (EAP): Includes China, Indonesia, Pacific Island States, and Philippines.'
+            ],
+            'max_age_days': 30,
+            'strict_region_filter': True,
+        }
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+        entries = [
+            {
+                'title': 'Digital Services Program',
+                'description': 'National rollout planned in Indonesia and neighboring markets.',
+                'published': now_iso,
+                'source': 'https://example.com',
+                'link': 'https://example.com/1',
+            },
+            {
+                'title': 'Digital Services Program',
+                'description': 'National rollout planned in Germany and Austria.',
+                'published': now_iso,
+                'source': 'https://example.com',
+                'link': 'https://example.com/2',
+            },
+        ]
+
+        diagnostics = {}
+        filtered = filter_entries(entries, config, diagnostics=diagnostics)
+
+        assert len(filtered) == 1
+        assert filtered[0]['link'] == 'https://example.com/1'
+        assert filtered[0].get('matched_regions') == ['EAP']
+        assert diagnostics['region_matched'] == 1
+        assert diagnostics['region_unmatched'] == 1
+        assert diagnostics['dropped_region'] == 1
+
+    def test_filter_entries_maps_iraq_to_menap(self):
+        """Test country-to-region mapping recognizes Iraq as MENAP."""
+        config = {
+            'regions': [
+                'Middle East, North Africa, Afghanistan, & Pakistan (MENAP): Often grouped due to regional stability and development similarities.'
+            ],
+            'max_age_days': 30,
+            'strict_region_filter': True,
+        }
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+        entries = [
+            {
+                'title': 'Supply and delivery for vocational schools in Ninewa, Iraq',
+                'description': 'UNESCO Invitation to Bid for materials supply in Iraq.',
+                'published': now_iso,
+                'source': 'https://www.ungm.org/Public/Notice/289708',
+                'link': 'https://www.ungm.org/Public/Notice/289708',
+            },
+        ]
+
+        diagnostics = {}
+        filtered = filter_entries(entries, config, diagnostics=diagnostics)
+
+        assert len(filtered) == 1
+        assert filtered[0].get('matched_regions') == ['MENAP']
+        assert diagnostics['region_matched'] == 1
+        assert diagnostics['region_unmatched'] == 0
+        assert diagnostics['dropped_region'] == 0
+
 
 class TestMarkdownOutput:
     """Tests for markdown output generation."""

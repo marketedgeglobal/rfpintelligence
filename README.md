@@ -100,6 +100,10 @@ min_budget: 50000
 # Maximum age of RFPs to consider (in days)
 max_age_days: 30
 
+# Optional: enforce configured regions as a hard filter
+# true = drop entries with no region match, false = keep and only use region in scoring
+strict_region_filter: false
+
 # Maximum number of results to output
 max_results: 20
 

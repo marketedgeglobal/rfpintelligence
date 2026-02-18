@@ -39,6 +39,10 @@ min_budget: 50000
 # Example: 30 for RFPs from the last 30 days
 max_age_days: 30
 
+# Enforce configured regions as a hard filter
+# When true, entries with no region match are dropped
+strict_region_filter: true
+
 # Maximum number of results to output
 # Example: 20 to show top 20 RFPs
 max_results: 20
