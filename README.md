@@ -104,6 +104,18 @@ max_age_days: 30
 # true = drop entries with no region match, false = keep and only use region in scoring
 strict_region_filter: false
 
+# Optional: UNGM fallback ingestion when UNGM RSS parsing is empty
+ungm_fallback_enabled: true
+
+# Optional: specific UNGM notice IDs/URLs to always include
+ungm_notice_ids:
+  - 289708
+
+# Optional: UNGM search fallback paging controls
+ungm_search_pages: 1
+ungm_search_page_size: 15
+ungm_max_fallback_notices: 30
+
 # Maximum number of results to output
 max_results: 20
 

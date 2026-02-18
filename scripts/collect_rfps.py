@@ -86,6 +86,9 @@ COUNTRY_TO_REGION_GROUP = {
 }
 
 
+UNGM_NOTICE_ROOT = "https://www.ungm.org/Public/Notice"
+
+
 def extract_region_labels(regions: Any) -> List[str]:
     """Normalize configured regions into a flat list of string labels.
 
@@ -406,12 +409,262 @@ def normalize_published_date(entry: Dict[str, Any], feed_url: str) -> Optional[d
     return None
 
 
-def fetch_and_parse_feeds(feed_urls: List[str]) -> List[Dict[str, Any]]:
+def is_ungm_notice_source(feed_url: str) -> bool:
+    """Check whether a feed URL points to the UNGM notice listing/detail endpoints."""
+    try:
+        parsed = urlparse(feed_url)
+    except Exception:
+        return False
+
+    if not parsed.netloc.lower().endswith("ungm.org"):
+        return False
+
+    return parsed.path.lower().startswith("/public/notice")
+
+
+def build_ungm_search_options(page_index: int, page_size: int) -> Dict[str, Any]:
+    """Build UNGM search payload compatible with the site's AJAX endpoint."""
+    return {
+        "PageIndex": page_index,
+        "PageSize": page_size,
+        "Title": "",
+        "Description": "",
+        "Reference": "",
+        "PublishedFrom": "",
+        "PublishedTo": "",
+        "DeadlineFrom": "",
+        "DeadlineTo": "",
+        "Countries": [],
+        "Agencies": [],
+        "UNSPSCs": [],
+        "NoticeTypes": [],
+        "SortField": "DatePublished",
+        "SortAscending": False,
+        "isPicker": False,
+        "IsSustainable": False,
+        "IsActive": True,
+        "NoticeDisplayType": "AllNotices",
+        "NoticeSearchTotalLabelId": "lblNoticeSearchTotal",
+        "TypeOfCompetitions": [],
+    }
+
+
+def parse_ungm_search_result_links(search_html: str) -> List[str]:
+    """Extract notice detail links from UNGM search response HTML."""
+    if not search_html:
+        return []
+
+    notice_ids = re.findall(r'data-noticeid=["\'](\d+)["\']', search_html, re.IGNORECASE)
+    if not notice_ids:
+        notice_ids = re.findall(r'/Public/Notice/(\d+)', search_html, re.IGNORECASE)
+
+    unique_ids = list(dict.fromkeys(notice_ids))
+    return [f"{UNGM_NOTICE_ROOT}/{notice_id}" for notice_id in unique_ids]
+
+
+def fetch_ungm_notice_links(
+    max_pages: int = 1,
+    page_size: int = 15,
+    timeout: int = 20,
+) -> List[str]:
+    """Fetch notice links from UNGM search endpoint."""
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+        "Origin": "https://www.ungm.org",
+        "Referer": UNGM_NOTICE_ROOT,
+    }
+
+    all_links: List[str] = []
+    for page_index in range(max(max_pages, 1)):
+        payload = build_ungm_search_options(page_index=page_index, page_size=page_size)
+        try:
+            response = requests.post(
+                f"{UNGM_NOTICE_ROOT}/Search",
+                json=payload,
+                headers=headers,
+                timeout=timeout,
+            )
+            response.raise_for_status()
+        except requests.RequestException as exc:
+            print(f"UNGM fallback search request failed: {exc}", file=sys.stderr)
+            break
+
+        links = parse_ungm_search_result_links(response.text)
+        if not links:
+            break
+
+        all_links.extend(links)
+        if len(links) < page_size:
+            break
+
+    return list(dict.fromkeys(all_links))
+
+
+def clean_html_text(value: str) -> str:
+    """Convert HTML fragments to compact plaintext."""
+    if not value:
+        return ""
+    text = re.sub(r"<[^>]+>", " ", value)
+    text = html.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def parse_ungm_notice_date(value: str) -> Optional[datetime]:
+    """Parse UNGM notice date values into UTC datetimes."""
+    if not value:
+        return None
+
+    base_value = value.split("(")[0].strip()
+    date_formats = [
+        "%d-%b-%Y",
+        "%d-%B-%Y",
+        "%d %B %Y",
+        "%d-%b-%Y %H:%M",
+    ]
+
+    for fmt in date_formats:
+        try:
+            return datetime.strptime(base_value, fmt).replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+
+    return None
+
+
+def parse_ungm_notice_entry(
+    notice_url: str,
+    page_html: str,
+    source_url: str,
+) -> Optional[Dict[str, Any]]:
+    """Parse a UNGM notice page into the normalized entry shape."""
+    if not page_html:
+        return None
+
+    title_match = re.search(r"<title>(.*?)</title>", page_html, re.IGNORECASE | re.DOTALL)
+    title = clean_html_text(title_match.group(1)) if title_match else ""
+
+    metadata: Dict[str, str] = {}
+    for label, value in re.findall(
+        r'<span class="label">(.*?)</span>\s*<span class="value">(.*?)</span>',
+        page_html,
+        re.IGNORECASE | re.DOTALL,
+    ):
+        label_text = clean_html_text(label).rstrip(":")
+        value_text = clean_html_text(value)
+        if label_text:
+            metadata[label_text] = value_text
+
+    published_text = metadata.get("Published on", "")
+    published = parse_ungm_notice_date(published_text)
+    if not published:
+        return None
+
+    description_match = re.search(
+        r'<div class="title">Description</div>\s*<div>(.*?)</div>\s*</div>\s*<br\s*/?>',
+        page_html,
+        re.IGNORECASE | re.DOTALL,
+    )
+    if not description_match:
+        description_match = re.search(
+            r'<div class="title">Description</div>\s*<div>(.*?)</div>',
+            page_html,
+            re.IGNORECASE | re.DOTALL,
+        )
+    description = clean_html_text(description_match.group(1)) if description_match else ""
+
+    return {
+        "title": title or f"UNGM Notice {notice_url.rsplit('/', 1)[-1]}",
+        "link": notice_url,
+        "description": description,
+        "published": published.isoformat(),
+        "source": source_url,
+        "source_name": "United Nations Global Marketplace",
+    }
+
+
+def fetch_ungm_notice_entry(
+    notice_url: str,
+    source_url: str,
+    timeout: int = 20,
+) -> Optional[Dict[str, Any]]:
+    """Fetch and parse a single UNGM notice detail page."""
+    headers = {"User-Agent": "Mozilla/5.0"}
+    try:
+        response = requests.get(notice_url, headers=headers, timeout=timeout)
+        response.raise_for_status()
+    except requests.RequestException as exc:
+        print(f"UNGM fallback notice request failed ({notice_url}): {exc}", file=sys.stderr)
+        return None
+
+    return parse_ungm_notice_entry(notice_url, response.text, source_url)
+
+
+def build_ungm_notice_url(raw_value: Any) -> Optional[str]:
+    """Normalize a notice id or URL into a full UNGM notice URL."""
+    if raw_value is None:
+        return None
+
+    value = str(raw_value).strip()
+    if not value:
+        return None
+
+    if value.startswith("http"):
+        match = re.search(r"/Public/Notice/(\d+)", value, re.IGNORECASE)
+        if match:
+            return f"{UNGM_NOTICE_ROOT}/{match.group(1)}"
+        return None
+
+    if value.isdigit():
+        return f"{UNGM_NOTICE_ROOT}/{value}"
+
+    return None
+
+
+def fetch_ungm_fallback_entries(feed_url: str, config: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Fetch UNGM notices using HTML/API fallback when RSS parsing is unavailable."""
+    if not config.get("ungm_fallback_enabled", True):
+        return []
+
+    notice_urls: List[str] = []
+
+    direct_notice_url = build_ungm_notice_url(feed_url)
+    if direct_notice_url:
+        notice_urls.append(direct_notice_url)
+
+    for raw_value in config.get("ungm_notice_ids", []):
+        notice_url = build_ungm_notice_url(raw_value)
+        if notice_url:
+            notice_urls.append(notice_url)
+
+    search_pages = int(config.get("ungm_search_pages", 1) or 1)
+    search_page_size = int(config.get("ungm_search_page_size", 15) or 15)
+    discovered_urls = fetch_ungm_notice_links(
+        max_pages=search_pages,
+        page_size=search_page_size,
+    )
+    notice_urls.extend(discovered_urls)
+
+    max_notices = int(config.get("ungm_max_fallback_notices", 30) or 30)
+    unique_urls = list(dict.fromkeys(notice_urls))[:max_notices]
+
+    entries: List[Dict[str, Any]] = []
+    for notice_url in unique_urls:
+        entry = fetch_ungm_notice_entry(notice_url, source_url=feed_url)
+        if entry:
+            entries.append(entry)
+
+    return entries
+
+
+def fetch_and_parse_feeds(feed_urls: List[str], config: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
     """
     Fetch and parse entries from multiple RSS feeds.
     
     Args:
         feed_urls: List of RSS feed URLs
+        config: Optional configuration dictionary
         
     Returns:
         List of parsed entry dictionaries
@@ -444,6 +697,14 @@ def fetch_and_parse_feeds(feed_urls: List[str]) -> List[Dict[str, Any]]:
                 }
                 
                 entries.append(entry_data)
+
+            if is_ungm_notice_source(feed_url):
+                has_configured_notice_ids = bool((config or {}).get("ungm_notice_ids"))
+                if not feed.entries or has_configured_notice_ids:
+                    fallback_entries = fetch_ungm_fallback_entries(feed_url, config or {})
+                    if fallback_entries:
+                        print(f"UNGM fallback fetched {len(fallback_entries)} notice(s)")
+                        entries.extend(fallback_entries)
         
         except Exception as e:
             print(f"Error fetching feed {feed_url}: {e}", file=sys.stderr)
@@ -1035,7 +1296,7 @@ def main():
         sys.exit(0)
     
     # Fetch and parse feeds
-    entries = fetch_and_parse_feeds(feeds)
+    entries = fetch_and_parse_feeds(feeds, config)
     fetched_count = len(entries)
     print(f"Fetched {fetched_count} total entries")
     

@@ -43,6 +43,18 @@ max_age_days: 30
 # When true, entries with no region match are dropped
 strict_region_filter: true
 
+# UNGM fallback ingestion (used when UNGM RSS parsing is empty)
+ungm_fallback_enabled: true
+
+# Optional: specific UNGM notice IDs/URLs to always attempt ingesting
+ungm_notice_ids:
+  - 289708
+
+# UNGM search fallback paging controls
+ungm_search_pages: 1
+ungm_search_page_size: 15
+ungm_max_fallback_notices: 30
+
 # Maximum number of results to output
 # Example: 20 to show top 20 RFPs
 max_results: 20

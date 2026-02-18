@@ -12,6 +12,7 @@ Tests validate core functionality including:
 import pytest
 from unittest.mock import Mock, patch
 from datetime import datetime, timezone
+from types import SimpleNamespace
 import sys
 import os
 
@@ -27,6 +28,9 @@ from collect_rfps import (
     score_budget,
     score_recency,
     filter_entries,
+    fetch_and_parse_feeds,
+    parse_ungm_notice_entry,
+    parse_ungm_search_result_links,
     generate_markdown_output,
     get_priority_band,
 )
@@ -523,6 +527,83 @@ class TestRegionFiltering:
         assert diagnostics['region_matched'] == 1
         assert diagnostics['region_unmatched'] == 0
         assert diagnostics['dropped_region'] == 0
+
+
+class TestUNGMFallback:
+    """Tests for UNGM HTML/API fallback ingestion helpers."""
+
+    def test_parse_ungm_search_result_links_extracts_unique_notice_links(self):
+        """Search result HTML should yield unique UNGM notice URLs."""
+        search_html = """
+            <div data-noticeid="289708"></div>
+            <div data-noticeid="289708"></div>
+            <div data-noticeid="291586"></div>
+        """
+
+        links = parse_ungm_search_result_links(search_html)
+
+        assert links == [
+            'https://www.ungm.org/Public/Notice/289708',
+            'https://www.ungm.org/Public/Notice/291586',
+        ]
+
+    def test_parse_ungm_notice_entry_extracts_expected_fields(self):
+        """UNGM notice detail HTML should parse into normalized entry fields."""
+        page_html = """
+            <html>
+              <head>
+                <title>Supply and delivery in Ninewa, Iraq</title>
+              </head>
+              <body>
+                <span class="label">Published on:</span><span class="value">28-Jan-2026</span>
+                <div class="title">Description</div>
+                <div>UNESCO Invitation to Bid for supply and delivery in Iraq.</div>
+              </body>
+            </html>
+        """
+
+        entry = parse_ungm_notice_entry(
+            'https://www.ungm.org/Public/Notice/289708',
+            page_html,
+            'https://www.ungm.org/Public/Notice',
+        )
+
+        assert entry is not None
+        assert entry['title'] == 'Supply and delivery in Ninewa, Iraq'
+        assert entry['link'] == 'https://www.ungm.org/Public/Notice/289708'
+        assert entry['source'] == 'https://www.ungm.org/Public/Notice'
+        assert entry['source_name'] == 'United Nations Global Marketplace'
+        assert 'UNESCO Invitation to Bid' in entry['description']
+        assert entry['published'] == datetime(2026, 1, 28, tzinfo=timezone.utc).isoformat()
+
+    @patch('collect_rfps.fetch_ungm_fallback_entries')
+    @patch('collect_rfps.feedparser.parse')
+    def test_fetch_and_parse_feeds_uses_ungm_fallback_when_rss_empty(
+        self,
+        mock_feed_parse,
+        mock_fallback,
+    ):
+        """UNGM fallback should be used when feedparser yields no entries."""
+        mock_feed_parse.return_value = SimpleNamespace(entries=[], feed={"title": "UNGM"})
+        mock_fallback.return_value = [
+            {
+                'title': 'Supply and delivery in Ninewa, Iraq',
+                'link': 'https://www.ungm.org/Public/Notice/289708',
+                'description': 'UNESCO Invitation to Bid',
+                'published': datetime.now(timezone.utc).isoformat(),
+                'source': 'https://www.ungm.org/Public/Notice',
+                'source_name': 'United Nations Global Marketplace',
+            }
+        ]
+
+        entries = fetch_and_parse_feeds(
+            ['https://www.ungm.org/Public/Notice'],
+            config={'ungm_fallback_enabled': True},
+        )
+
+        assert len(entries) == 1
+        assert entries[0]['link'] == 'https://www.ungm.org/Public/Notice/289708'
+        mock_fallback.assert_called_once()
 
     def test_filter_entries_strict_mode_falls_back_when_everything_unmatched(self):
         """Test strict region filtering fails open when it would return zero entries."""
