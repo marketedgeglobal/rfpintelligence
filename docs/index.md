@@ -1,11 +1,11 @@
 ---
 title: RFP Intelligence Analysis
-updated: 2026-02-18 19:24:42 UTC
+updated: 2026-02-18 19:28:40 UTC
 ---
 
 # RFP Intelligence Analysis
 
-*Last updated: 2026-02-18 19:24:42 UTC*
+*Last updated: 2026-02-18 19:28:40 UTC*
 
 ## Executive Summary
 
