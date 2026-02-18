@@ -346,7 +346,8 @@ def score_budget(budget: Optional[float], min_budget: float) -> float:
     if budget >= min_budget * 2:
         return 1.0
     
-    return 0.5 + (budget - min_budget) / (min_budget * 2)
+    # Clamp to ensure score doesn't exceed 1.0 due to floating point arithmetic
+    return min(1.0, 0.5 + (budget - min_budget) / (min_budget * 2))
 
 
 def score_recency(published: str, max_age_days: int) -> float:
