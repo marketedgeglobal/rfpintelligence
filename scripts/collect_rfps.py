@@ -530,12 +530,17 @@ def save_last_run(entries: List[Dict[str, Any]], last_run_path: str = "data/last
         json.dump(data, f, indent=2)
 
 
-def generate_markdown_output(entries: List[Dict[str, Any]], output_path: str = "docs/index.md"):
+def generate_markdown_output(
+    entries: List[Dict[str, Any]],
+    metrics: Dict[str, int],
+    output_path: str = "docs/index.md"
+):
     """
     Generate Markdown output file.
     
     Args:
         entries: List of scored and ranked entries
+        metrics: Pipeline metrics dictionary
         output_path: Path to output file
     """
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -549,53 +554,41 @@ def generate_markdown_output(entries: List[Dict[str, Any]], output_path: str = "
     # Generate new content
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
     
+    avg_score = sum(entry.get('score', 0.0) for entry in entries) / len(entries) if entries else 0.0
+    max_score = max((entry.get('score', 0.0) for entry in entries), default=0.0)
+    min_score = min((entry.get('score', 0.0) for entry in entries), default=0.0)
+
     lines = [
         "---",
-        "title: RFP Intelligence",
+        "title: RFP Intelligence Analysis",
         f"updated: {timestamp}",
         "---",
         "",
-        "# RFP Intelligence",
-        "",
-        "## Features",
-        "",
-    ]
-
-    for feature in FEATURES:
-        lines.append(f"- {feature}")
-
-    lines.extend([
+        "# RFP Intelligence Analysis",
         "",
         f"*Last updated: {timestamp}*",
         "",
-        f"Found {len(entries)} relevant opportunities:",
+        "## Pipeline Metrics",
         "",
-    ])
-    
-    for i, entry in enumerate(entries, 1):
-        lines.append(f"## {i}. {entry['title']}")
-        lines.append("")
-        lines.append(f"**Link:** [{entry['link']}]({entry['link']})")
-        lines.append("")
-        lines.append(f"**Published:** {entry['published']}")
-        lines.append("")
-        lines.append(f"**Source:** {entry.get('source_name', 'Unknown')}")
-        lines.append("")
-        
-        if 'budget' in entry:
-            lines.append(f"**Estimated Budget:** ${entry['budget']:,.0f}")
-            lines.append("")
-        
-        if entry.get('description'):
-            # Truncate long descriptions
-            desc = entry['description']
-            if len(desc) > 500:
-                desc = desc[:500] + "..."
-            lines.append(f"**Description:** {desc}")
-            lines.append("")
-        
-        lines.append("---")
-        lines.append("")
+        f"- **Fetched:** {metrics.get('fetched', 0)}",
+        f"- **After filtering:** {metrics.get('filtered', 0)}",
+        f"- **After deduplication:** {metrics.get('deduplicated', 0)}",
+        f"- **Selected top results:** {metrics.get('selected', len(entries))}",
+        "",
+        "## Scoring Summary",
+        "",
+        f"- **Entries scored:** {len(entries)}",
+        f"- **Average score:** {avg_score:.3f}",
+        f"- **Highest score:** {max_score:.3f}",
+        f"- **Lowest score:** {min_score:.3f}",
+        "",
+        "## Run Metadata",
+        "",
+        "- **Output file:** `docs/index.md`",
+        "- **Metadata file:** `data/last_run.json`",
+        "- **Timezone:** UTC",
+        "",
+    ]
     
     new_content = "\n".join(lines)
     
@@ -627,15 +620,18 @@ def main():
     
     # Fetch and parse feeds
     entries = fetch_and_parse_feeds(feeds)
-    print(f"Fetched {len(entries)} total entries")
+    fetched_count = len(entries)
+    print(f"Fetched {fetched_count} total entries")
     
     # Filter entries
     entries = filter_entries(entries, config)
-    print(f"After filtering: {len(entries)} entries")
+    filtered_count = len(entries)
+    print(f"After filtering: {filtered_count} entries")
     
     # Deduplicate
     entries = deduplicate_entries(entries)
-    print(f"After deduplication: {len(entries)} entries")
+    deduplicated_count = len(entries)
+    print(f"After deduplication: {deduplicated_count} entries")
     
     # Score entries
     for entry in entries:
@@ -647,10 +643,17 @@ def main():
     # Take top N results
     max_results = config.get('max_results', 20)
     top_entries = entries[:max_results]
-    print(f"Selected top {len(top_entries)} entries")
+    selected_count = len(top_entries)
+    print(f"Selected top {selected_count} entries")
     
     # Generate output
-    generate_markdown_output(top_entries)
+    metrics = {
+        'fetched': fetched_count,
+        'filtered': filtered_count,
+        'deduplicated': deduplicated_count,
+        'selected': selected_count,
+    }
+    generate_markdown_output(top_entries, metrics)
     
     # Save last run data
     save_last_run(top_entries)
