@@ -1,11 +1,19 @@
 ---
 title: RFP Intelligence Analysis
+<<<<<<< HEAD
 updated: 2026-02-18 19:45:21 UTC
+=======
+updated: 2026-02-18 19:48:12 UTC
+>>>>>>> 9edd1a0 (feat: implement strict region filtering fallback mechanism and update diagnostics)
 ---
 
 # RFP Intelligence Analysis
 
+<<<<<<< HEAD
 *Last updated: 2026-02-18 19:45:21 UTC*
+=======
+*Last updated: 2026-02-18 19:48:12 UTC*
+>>>>>>> 9edd1a0 (feat: implement strict region filtering fallback mechanism and update diagnostics)
 
 ## Executive Summary
 
@@ -22,7 +30,11 @@ updated: 2026-02-18 19:45:21 UTC
 - **Selected top results:** 0
 - **Dropped by age:** 52
 - **Dropped by invalid date:** 0
+<<<<<<< HEAD
 - **Dropped by region:** 48
+=======
+- **Dropped by region:** 0
+>>>>>>> 9edd1a0 (feat: implement strict region filtering fallback mechanism and update diagnostics)
 - **Region matched (annotated):** 0
 - **Region unmatched (kept):** 48
 
@@ -46,8 +58,8 @@ updated: 2026-02-18 19:45:21 UTC
 
 ## Filtering Notes
 
-- **Region handling:** Region criteria are used as a scoring signal.
-- **Unmatched entries:** Items without region matches are retained and counted as Region unmatched (kept).
+- **Region handling:** Strict region filtering was enabled but matched no entries in this run.
+- **Fallback applied:** Unmatched entries were retained to avoid a zero-result output.
 
 ## Top Opportunities
 

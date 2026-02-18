@@ -524,6 +524,43 @@ class TestRegionFiltering:
         assert diagnostics['region_unmatched'] == 0
         assert diagnostics['dropped_region'] == 0
 
+    def test_filter_entries_strict_mode_falls_back_when_everything_unmatched(self):
+        """Test strict region filtering fails open when it would return zero entries."""
+        config = {
+            'regions': [
+                'East Asia and Pacific (EAP): Includes China, Indonesia, Pacific Island States, and Philippines.'
+            ],
+            'max_age_days': 30,
+            'strict_region_filter': True,
+        }
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+        entries = [
+            {
+                'title': 'Digital Services Program',
+                'description': 'National rollout planned in Germany and Austria.',
+                'published': now_iso,
+                'source': 'https://example.com',
+                'link': 'https://example.com/1',
+            },
+            {
+                'title': 'Analytics Platform Modernization',
+                'description': 'Implementation support for agencies in France.',
+                'published': now_iso,
+                'source': 'https://example.com',
+                'link': 'https://example.com/2',
+            },
+        ]
+
+        diagnostics = {}
+        filtered = filter_entries(entries, config, diagnostics=diagnostics)
+
+        assert len(filtered) == 2
+        assert diagnostics['region_matched'] == 0
+        assert diagnostics['region_unmatched'] == 2
+        assert diagnostics['dropped_region'] == 0
+        assert diagnostics['strict_region_fallback'] == 1
+
 
 class TestMarkdownOutput:
     """Tests for markdown output generation."""

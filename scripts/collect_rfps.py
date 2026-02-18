@@ -617,6 +617,11 @@ def filter_entries(
     counters.setdefault('dropped_region', 0)
     counters.setdefault('region_matched', 0)
     counters.setdefault('region_unmatched', 0)
+    counters.setdefault('strict_region_fallback', 0)
+
+    strict_region_filter = bool(config.get('strict_region_filter', False))
+    configured_region_labels = extract_region_labels(config.get('regions', []))
+    strict_region_dropped_entries: List[Dict[str, Any]] = []
     
     for entry in entries:
         # Check age
@@ -632,9 +637,6 @@ def filter_entries(
             counters['dropped_invalid_date'] += 1
             continue
 
-        configured_regions = config.get('regions', [])
-        configured_region_labels = extract_region_labels(configured_regions)
-        strict_region_filter = bool(config.get('strict_region_filter', False))
         if configured_region_labels:
             text = f"{entry.get('title', '')} {entry.get('description', '')}"
             matched_region_groups = get_matched_region_groups(text, configured_region_labels)
@@ -649,6 +651,7 @@ def filter_entries(
                     counters['region_unmatched'] += 1
                     if strict_region_filter:
                         counters['dropped_region'] += 1
+                        strict_region_dropped_entries.append(entry)
                         continue
             else:
                 entry['matched_regions'] = sorted(matched_region_groups)
@@ -656,6 +659,17 @@ def filter_entries(
         
         filtered.append(entry)
     
+    if (
+        strict_region_filter
+        and configured_region_labels
+        and not filtered
+        and strict_region_dropped_entries
+        and counters.get('region_matched', 0) == 0
+    ):
+        filtered.extend(strict_region_dropped_entries)
+        counters['dropped_region'] = 0
+        counters['strict_region_fallback'] = 1
+
     return filtered
 
 
@@ -875,6 +889,8 @@ def generate_markdown_output(
         f"{region} ({count})" for region, count in sorted(region_counts.items())
     ) if region_counts else "No matched regions detected"
 
+    strict_region_fallback = bool(metrics.get('strict_region_fallback', 0))
+
     lines = [
         "---",
         "title: RFP Intelligence Analysis",
@@ -924,12 +940,24 @@ def generate_markdown_output(
         "",
         "## Filtering Notes",
         "",
-        "- **Region handling:** Region criteria are used as a scoring signal.",
-        "- **Unmatched entries:** Items without region matches are retained and counted as Region unmatched (kept).",
+    ]
+
+    if strict_region_fallback:
+        lines.extend([
+            "- **Region handling:** Strict region filtering was enabled but matched no entries in this run.",
+            "- **Fallback applied:** Unmatched entries were retained to avoid a zero-result output.",
+        ])
+    else:
+        lines.extend([
+            "- **Region handling:** Region criteria are used as a scoring signal.",
+            "- **Unmatched entries:** Items without region matches are retained and counted as Region unmatched (kept).",
+        ])
+
+    lines.extend([
         "",
         "## Top Opportunities",
         "",
-    ]
+    ])
 
     if not entries:
         lines.extend([
@@ -1022,7 +1050,8 @@ def main():
         f"dropped_invalid_date={filter_diagnostics.get('dropped_invalid_date', 0)}, "
         f"dropped_region={filter_diagnostics.get('dropped_region', 0)}, "
         f"region_matched={filter_diagnostics.get('region_matched', 0)}, "
-        f"region_unmatched={filter_diagnostics.get('region_unmatched', 0)}"
+        f"region_unmatched={filter_diagnostics.get('region_unmatched', 0)}, "
+        f"strict_region_fallback={filter_diagnostics.get('strict_region_fallback', 0)}"
     )
     
     # Deduplicate
@@ -1054,6 +1083,7 @@ def main():
         'dropped_region': filter_diagnostics.get('dropped_region', 0),
         'region_matched': filter_diagnostics.get('region_matched', 0),
         'region_unmatched': filter_diagnostics.get('region_unmatched', 0),
+        'strict_region_fallback': filter_diagnostics.get('strict_region_fallback', 0),
     }
     generate_markdown_output(top_entries, metrics)
     
