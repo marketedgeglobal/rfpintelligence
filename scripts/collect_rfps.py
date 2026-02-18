@@ -135,7 +135,7 @@ def parse_rfp_entry(entry: Any, source_url: str) -> Dict[str, Any]:
     published = entry.get('published', entry.get('updated', ''))
     try:
         pub_date = date_parser.parse(published) if published else datetime.now()
-    except:
+    except (ValueError, TypeError):
         pub_date = datetime.now()
     
     # Extract text content for keyword matching
