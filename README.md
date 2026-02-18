@@ -116,7 +116,7 @@ The script will:
 1. Fetch entries from all configured RSS feeds
 2. Filter entries based on your criteria
 3. Score and rank the entries
-4. Output the top results to `docs/index.md`
+4. Output analysis-only metrics to `docs/index.md`
 5. Save run metadata to `data/last_run.json`
 
 ## GitHub Actions Automation
@@ -129,10 +129,17 @@ The script will:
 4. Select folder: **/ (root)** or **/docs** (recommended)
 5. Click **Save**
 
-Your RFP intelligence page will be available at:
+Your RFP intelligence analysis page will be available at:
 ```
-https://marketedgeglobal.github.io/rfpintelligence/docs/
+https://marketedgeglobal.github.io/rfpintelligence/
 ```
+
+### What's on the Live Page
+
+The published `docs/index.md` page includes analysis-only data:
+- **Pipeline Metrics**: fetched, filtered, deduplicated, selected top results
+- **Scoring Summary**: entries scored, average score, highest score, lowest score
+- **Run Metadata**: output file path, metadata file path, timezone
 
 ### Workflow Schedule
 
@@ -142,7 +149,7 @@ The GitHub Actions workflow (`.github/workflows/weekly-rfps.yml`) automatically:
 - ✅ Sets up Python 3.11
 - ✅ Installs dependencies
 - ✅ Runs the collection script
-- ✅ Verifies the `docs/index.md` live page still contains the required **Features** section
+- ✅ Verifies the `docs/index.md` live page contains the required analysis sections
 - ✅ Commits `docs/index.md` and `data/last_run.json` only if they changed
 - ✅ Uses `github-actions[bot]` as the commit author
 
@@ -212,7 +219,7 @@ rfpintelligence/
 ├── data/
 │   └── last_run.json          # Metadata from last run
 ├── docs/
-│   └── index.md               # Generated output (published via GitHub Pages)
+│   └── index.md               # Generated analysis output (published via GitHub Pages)
 ├── scripts/
 │   └── collect_rfps.py        # Main collection script
 ├── tests/
