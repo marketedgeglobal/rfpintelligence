@@ -95,7 +95,7 @@ The script will:
 
 Your RFP intelligence page will be available at:
 ```
-https://<username>.github.io/<repository-name>/docs/
+https://marketedgeglobal.github.io/rfpintelligence/docs/
 ```
 
 ### Workflow Schedule

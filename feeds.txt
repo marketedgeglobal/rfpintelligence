@@ -2,9 +2,20 @@
 # Add one RSS feed URL per line
 # Lines starting with # are comments and will be ignored
 #
-# Example feeds (REPLACE THESE WITH REAL FEED URLS):
-# https://example.com/rfps/feed.xml
-# https://contracts.example.gov/rss
-# https://procurement.example.org/feed
-
-# TODO: Add your real RSS feed URLs here
+# Feed URLs
+https://reliefweb.int/updates/rss.xml
+https://feeds.feedburner.com/procurement-notices
+https://projects.worldbank.org/en/projects-operations/procurement/rss
+https://news.un.org/feed/subscribe/en/news/topic/economic-development/feed/rss.xml
+https://news.un.org/feed/subscribe/en/news/topic/humanitarian-aid/feed/rss.xml
+https://www.unocha.org/rss.xml
+https://www.unhcr.org/rss.xml
+https://ted.europa.eu/TED/rss/en/RSS.xml
+https://international-partnerships.ec.europa.eu/newsroom/feed_en
+https://www.usaid.gov/news-information/press-releases/rss.xml
+https://oecd-development-matters.org/feed/
+https://www.afdb.org/en/projects-and-operations/procurement/rss
+https://www.iadb.org/en/rss
+https://www.greenclimate.fund/rss.xml
+https://www.thegef.org/rss.xml
+https://www.ungm.org/Public/Notice
