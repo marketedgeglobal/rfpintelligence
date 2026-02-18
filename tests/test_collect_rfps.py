@@ -156,6 +156,12 @@ class TestExtractBudget:
         result = extract_budget(text)
         assert result == 1250000.0
 
+    def test_extract_budget_ignores_url_encoded_20m_false_positive(self):
+        """Test that URL-encoded values like %20Madagascar do not parse as 20M budgets."""
+        text = '... src="https://example.com/files/WFP%20Madagascar%20CERF_0.jpg" ...'
+        result = extract_budget(text)
+        assert result is None
+
 
 class TestApplySourceWeighting:
     """Tests for apply_source_weighting function."""

@@ -295,7 +295,8 @@ def extract_budget(text: str) -> Optional[float]:
     
     # Common patterns for budget mentions
     # Pattern 1: decimal number followed by million/M (e.g., "2.5 million", "1.5M")
-    pattern = r'(\d+(?:\.\d+)?)\s*(?:million|M)\s*(?:USD|\$|dollars)?'
+    # Guard against URL-encoded false positives like "%20Madagascar" -> "20M"
+    pattern = r'(?<![%\w])(\d+(?:\.\d+)?)\s*(?:million\b|M\b)\s*(?:USD|\$|dollars)?'
     match = re.search(pattern, text, re.IGNORECASE)
     if match:
         try:

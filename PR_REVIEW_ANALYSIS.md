@@ -174,6 +174,14 @@ Merge PRs in dependency order, resolving conflicts at each step:
 4. **Testing Gaps:** Integration testing across PRs may be needed
 5. **Package Structure:** PRs #4 and #5 both modify `__init__.py` and package structure
 
+## Post-Review Bug Note (Budget Extraction)
+
+- **Issue observed:** A UNOCHA entry was assigned `$20,000,000` even though the article did not contain a real $20M budget.
+- **Root cause:** In `scripts/collect_rfps.py`, the `million/M` regex matched `20M` inside URL-encoded media text (`%20Madagascar`) from feed HTML.
+- **Fix applied:** Tightened budget parsing so URL-encoded/media filename text is ignored unless it appears in a valid monetary context.
+- **Regression coverage:** Added a unit test in `tests/test_collect_rfps.py` to ensure `%20Madagascar`-style strings no longer parse as `20M`.
+- **Verification:** Re-ran collection and confirmed UNOCHA top-news entries now show `Budget: Not detected` where no explicit monetary amount exists.
+
 ## Updated Analysis Keywords
 
 ```yaml
