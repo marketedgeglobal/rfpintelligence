@@ -1,5 +1,0 @@
-feedparser
-pyyaml
-requests
-python-dateutil
-pytest
