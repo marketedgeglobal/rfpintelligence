@@ -5,7 +5,7 @@ An automated system for collecting, filtering, scoring, and ranking Request for 
 ## Features
 
 - 🔍 **Automated Collection**: Fetches RFPs from multiple RSS feeds
-- 🎯 **Smart Filtering**: Filters by keywords, budget thresholds, regions, and recency
+- 🎯 **Smart Filtering**: Filters by recency and annotates region matches for scoring
 - 📊 **Intelligent Scoring**: Ranks opportunities based on keyword matches, budget size, recency, and source priority
 - 🔄 **Deduplication**: Automatically removes duplicate entries
 - 📅 **Weekly Automation**: GitHub Actions workflow runs weekly and commits updates
@@ -127,7 +127,7 @@ python scripts/collect_rfps.py
 
 The script will:
 1. Fetch entries from all configured RSS feeds
-2. Filter entries based on your criteria
+2. Filter entries by recency and annotate region matches
 3. Score and rank the entries
 4. Output analysis-only metrics to `docs/index.md`
 5. Save run metadata to `data/last_run.json`
@@ -150,7 +150,7 @@ https://marketedgeglobal.github.io/rfpintelligence/
 ### What's on the Live Page
 
 The published `docs/index.md` page includes analysis-only data:
-- **Pipeline Metrics**: fetched, filtered, deduplicated, selected top results
+- **Pipeline Metrics**: fetched, filtered, deduplicated, selected top results, and filter diagnostics
 - **Scoring Summary**: entries scored, average score, highest score, lowest score
 - **Run Metadata**: output file path, metadata file path, timezone
 

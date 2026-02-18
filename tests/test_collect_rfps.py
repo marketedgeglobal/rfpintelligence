@@ -370,10 +370,10 @@ class TestScoreItem:
 
 
 class TestRegionFiltering:
-    """Tests for semantic region filtering behavior."""
+    """Tests for semantic region annotation behavior."""
 
     def test_filter_entries_semantic_region_group_matching(self):
-        """Test filtering uses semantic country-to-region matching for configured groups."""
+        """Test filtering annotates semantic region matches without excluding unmatched entries."""
         config = {
             'regions': [
                 'East Asia and Pacific (EAP): Includes China, Indonesia, Pacific Island States, and Philippines.'
@@ -399,14 +399,18 @@ class TestRegionFiltering:
             },
         ]
 
-        filtered = filter_entries(entries, config)
+        diagnostics = {}
+        filtered = filter_entries(entries, config, diagnostics=diagnostics)
 
-        assert len(filtered) == 1
+        assert len(filtered) == 2
         assert filtered[0]['link'] == 'https://example.com/1'
         assert filtered[0].get('matched_regions') == ['EAP']
+        assert 'matched_regions' not in filtered[1]
+        assert diagnostics['region_matched'] == 1
+        assert diagnostics['region_unmatched'] == 1
 
     def test_filter_entries_accepts_dict_region_config_entries(self):
-        """Test filtering handles YAML dict-shaped region entries without crashing."""
+        """Test filtering handles YAML dict-shaped region entries and keeps unmatched items."""
         config = {
             'regions': [
                 {
@@ -436,11 +440,15 @@ class TestRegionFiltering:
             },
         ]
 
-        filtered = filter_entries(entries, config)
+        diagnostics = {}
+        filtered = filter_entries(entries, config, diagnostics=diagnostics)
 
-        assert len(filtered) == 1
+        assert len(filtered) == 2
         assert filtered[0]['link'] == 'https://example.com/1'
         assert filtered[0].get('matched_regions') == ['EAP']
+        assert 'matched_regions' not in filtered[1]
+        assert diagnostics['region_matched'] == 1
+        assert diagnostics['region_unmatched'] == 1
 
 
 class TestMarkdownOutput:

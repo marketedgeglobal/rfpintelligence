@@ -8,7 +8,7 @@ configured criteria, and outputs the top-ranked results to a Markdown file.
 Pipeline flow:
 1. Fetch feeds from feeds.txt
 2. Parse entries from each feed
-3. Filter entries (keywords, budget, regions, time)
+3. Filter entries (recency) and annotate region matches
 4. Deduplicate entries
 5. Score entries (keyword match, budget, recency, source weight)
 6. Rank and select top N
@@ -33,7 +33,7 @@ from email.utils import parsedate_to_datetime
 
 FEATURES = [
     "🔍 **Automated Collection**: Fetches RFPs from multiple RSS feeds",
-    "🎯 **Smart Filtering**: Filters by keywords, budget thresholds, regions, and recency",
+    "🎯 **Smart Filtering**: Filters by recency and annotates region matches for scoring",
     "📊 **Intelligent Scoring**: Ranks opportunities based on keyword matches, budget size, recency, and source priority",
     "🔄 **Deduplication**: Automatically removes duplicate entries",
     "📅 **Weekly Automation**: GitHub Actions workflow runs weekly and commits updates",
@@ -580,18 +580,29 @@ def calculate_score(entry: Dict[str, Any], config: Dict[str, Any]) -> float:
     return total_score
 
 
-def filter_entries(entries: List[Dict[str, Any]], config: Dict[str, Any]) -> List[Dict[str, Any]]:
+def filter_entries(
+    entries: List[Dict[str, Any]],
+    config: Dict[str, Any],
+    diagnostics: Optional[Dict[str, int]] = None,
+) -> List[Dict[str, Any]]:
     """
     Filter entries based on criteria.
     
     Args:
         entries: List of entry dictionaries
         config: Configuration dictionary
+        diagnostics: Optional dictionary that receives filter counters
         
     Returns:
         Filtered list of entries
     """
     filtered = []
+
+    counters = diagnostics if diagnostics is not None else {}
+    counters.setdefault('dropped_age', 0)
+    counters.setdefault('dropped_invalid_date', 0)
+    counters.setdefault('region_matched', 0)
+    counters.setdefault('region_unmatched', 0)
     
     for entry in entries:
         # Check age
@@ -601,8 +612,10 @@ def filter_entries(entries: List[Dict[str, Any]], config: Dict[str, Any]) -> Lis
             age_days = (now - pub_date).days
             
             if age_days > config['max_age_days']:
+                counters['dropped_age'] += 1
                 continue
         except (ValueError, TypeError):
+            counters['dropped_invalid_date'] += 1
             continue
 
         configured_regions = config.get('regions', [])
@@ -615,10 +628,13 @@ def filter_entries(entries: List[Dict[str, Any]], config: Dict[str, Any]) -> Lis
                     region and region.lower() in text.lower()
                     for region in configured_region_labels
                 )
-                if not fallback_match:
-                    continue
+                if fallback_match:
+                    counters['region_matched'] += 1
+                else:
+                    counters['region_unmatched'] += 1
             else:
                 entry['matched_regions'] = sorted(matched_region_groups)
+                counters['region_matched'] += 1
         
         filtered.append(entry)
     
@@ -864,6 +880,10 @@ def generate_markdown_output(
         f"- **After filtering:** {metrics.get('filtered', 0)}",
         f"- **After deduplication:** {metrics.get('deduplicated', 0)}",
         f"- **Selected top results:** {metrics.get('selected', len(entries))}",
+        f"- **Dropped by age:** {metrics.get('dropped_age', 0)}",
+        f"- **Dropped by invalid date:** {metrics.get('dropped_invalid_date', 0)}",
+        f"- **Region matched (annotated):** {metrics.get('region_matched', 0)}",
+        f"- **Region unmatched (kept):** {metrics.get('region_unmatched', 0)}",
         "",
         "## Scoring Summary",
         "",
@@ -882,6 +902,11 @@ def generate_markdown_output(
         "## Region Coverage",
         "",
         f"- **Matched region groups:** {region_coverage_text}",
+        "",
+        "## Filtering Notes",
+        "",
+        "- **Region handling:** Region criteria are used as a scoring signal.",
+        "- **Unmatched entries:** Items without region matches are retained and counted as Region unmatched (kept).",
         "",
         "## Top Opportunities",
         "",
@@ -968,9 +993,17 @@ def main():
     print(f"Fetched {fetched_count} total entries")
     
     # Filter entries
-    entries = filter_entries(entries, config)
+    filter_diagnostics: Dict[str, int] = {}
+    entries = filter_entries(entries, config, diagnostics=filter_diagnostics)
     filtered_count = len(entries)
     print(f"After filtering: {filtered_count} entries")
+    print(
+        "Filtering diagnostics: "
+        f"dropped_age={filter_diagnostics.get('dropped_age', 0)}, "
+        f"dropped_invalid_date={filter_diagnostics.get('dropped_invalid_date', 0)}, "
+        f"region_matched={filter_diagnostics.get('region_matched', 0)}, "
+        f"region_unmatched={filter_diagnostics.get('region_unmatched', 0)}"
+    )
     
     # Deduplicate
     entries = deduplicate_entries(entries)
@@ -996,6 +1029,10 @@ def main():
         'filtered': filtered_count,
         'deduplicated': deduplicated_count,
         'selected': selected_count,
+        'dropped_age': filter_diagnostics.get('dropped_age', 0),
+        'dropped_invalid_date': filter_diagnostics.get('dropped_invalid_date', 0),
+        'region_matched': filter_diagnostics.get('region_matched', 0),
+        'region_unmatched': filter_diagnostics.get('region_unmatched', 0),
     }
     generate_markdown_output(top_entries, metrics)
     
