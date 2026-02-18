@@ -1,0 +1,10 @@
+# RSS Feed URLs
+# Add one RSS feed URL per line
+# Lines starting with # are comments and will be ignored
+#
+# Example feeds (REPLACE THESE WITH REAL FEED URLS):
+# https://example.com/rfps/feed.xml
+# https://contracts.example.gov/rss
+# https://procurement.example.org/feed
+
+# TODO: Add your real RSS feed URLs here
