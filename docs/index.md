@@ -1,6 +1,6 @@
 ---
 title: RFP Intelligence
-updated: 2026-02-18 16:20:50 UTC
+updated: 2026-02-18 16:32:07 UTC
 ---
 
 # RFP Intelligence
@@ -14,7 +14,7 @@ updated: 2026-02-18 16:20:50 UTC
 - 📅 **Weekly Automation**: GitHub Actions workflow runs weekly and commits updates
 - 📄 **Clean Output**: Generates formatted Markdown documentation
 
-*Last updated: 2026-02-18 16:20:50 UTC*
+*Last updated: 2026-02-18 16:32:07 UTC*
 
 Found 20 relevant opportunities:
 
