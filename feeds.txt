@@ -1,0 +1,16 @@
+# RFP Feed Sources - RSS/Atom URLs
+# Add your RSS or Atom feed URLs below (one per line)
+# Lines starting with # are comments
+
+# Government procurement feeds
+https://example.com/feed1.xml
+https://example.com/feed2.xml
+
+# Industry-specific RFP feeds
+https://example.com/feed3.xml
+https://example.com/feed4.xml
+
+# Regional procurement portals
+https://example.com/feed5.xml
+https://example.com/feed6.xml
+https://example.com/feed7.xml

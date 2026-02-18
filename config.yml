@@ -1,0 +1,35 @@
+# Configuration for RFP Aggregator
+# Fill in the values below based on your requirements
+
+# Keywords to filter RFPs (list of strings)
+keywords:
+  # - "software development"
+  # - "cloud services"
+  # - "consulting"
+
+# Minimum budget threshold (integer, in USD)
+min_budget:
+
+# Target regions (list of strings)
+regions:
+  # - "North America"
+  # - "Europe"
+  # - "Asia Pacific"
+
+# Source weight multipliers (dict: source_name -> weight)
+source_weights:
+  # example.com: 1.5
+  # trusted-source.gov: 2.0
+
+# Scoring weights for different factors
+weights:
+  keyword_match:  # Weight for keyword matching
+  recency:        # Weight for how recent the RFP is
+  budget:         # Weight for budget size
+  source:         # Weight for source reputation
+
+# Number of top RFPs to include in output
+top_n:
+
+# Time window in days for RFP collection
+days_window:
