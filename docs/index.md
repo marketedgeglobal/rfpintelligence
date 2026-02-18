@@ -3,8 +3,6 @@ title: RFP Intelligence Analysis
 updated: 2026-02-18 22:10:11 UTC
 ---
 
-# RFP Intelligence Analysis
-
 *Last updated: 2026-02-18 22:10:11 UTC*
 
 ## Executive Summary

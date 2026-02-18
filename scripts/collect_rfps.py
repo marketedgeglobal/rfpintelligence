@@ -1158,8 +1158,6 @@ def generate_markdown_output(
         f"updated: {timestamp}",
         "---",
         "",
-        "# RFP Intelligence Analysis",
-        "",
         f"*Last updated: {timestamp}*",
         "",
         "## Executive Summary",
