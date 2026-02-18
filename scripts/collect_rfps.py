@@ -17,6 +17,7 @@ Pipeline flow:
 
 import feedparser
 import hashlib
+import html
 import json
 import os
 import re
@@ -603,6 +604,25 @@ def get_source_display_name(entry: Dict[str, Any]) -> str:
     return "Unknown source"
 
 
+def sanitize_summary(summary: Optional[str]) -> str:
+    """
+    Convert feed summary HTML into clean plain text.
+
+    Args:
+        summary: Raw summary text that may include HTML
+
+    Returns:
+        Sanitized plain-text summary
+    """
+    if not summary:
+        return ""
+
+    cleaned = re.sub(r'<[^>]+>', ' ', summary)
+    cleaned = html.unescape(cleaned)
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    return cleaned
+
+
 def generate_markdown_output(
     entries: List[Dict[str, Any]],
     metrics: Dict[str, int],
@@ -701,7 +721,7 @@ def generate_markdown_output(
             published = format_published_date(entry.get('published'))
             source = get_source_display_name(entry)
             budget = format_currency(entry.get('budget'))
-            summary = (entry.get('description') or '').strip()
+            summary = sanitize_summary(entry.get('description'))
 
             heading = f"### {index}. {title}"
             if link:

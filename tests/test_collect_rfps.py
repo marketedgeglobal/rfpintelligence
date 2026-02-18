@@ -355,7 +355,7 @@ class TestMarkdownOutput:
             {
                 'title': 'AI Procurement Platform',
                 'link': 'https://example.com/rfp-1',
-                'description': 'Implementation of an AI-powered procurement platform.',
+                'description': '<span>Implementation of an AI-powered procurement platform.</span>',
                 'published': '2026-02-17T10:00:00+00:00',
                 'source': 'https://example.com/feed',
                 'source_name': 'Example Agency',
@@ -396,6 +396,8 @@ class TestMarkdownOutput:
         assert '### 1. [AI Procurement Platform](https://example.com/rfp-1)' in content
         assert '- **Score:** 0.670 (High)' in content
         assert '- **Budget:** $250,000' in content
+        assert '- **Summary:** Implementation of an AI-powered procurement platform.' in content
+        assert '<span>' not in content
         assert '### 2. [Digital Transformation Services](https://example.com/rfp-2)' in content
         assert '- **Score:** 0.450 (Medium)' in content
         assert '- **Budget:** Not detected' in content
