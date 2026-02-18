@@ -405,6 +405,43 @@ class TestRegionFiltering:
         assert filtered[0]['link'] == 'https://example.com/1'
         assert filtered[0].get('matched_regions') == ['EAP']
 
+    def test_filter_entries_accepts_dict_region_config_entries(self):
+        """Test filtering handles YAML dict-shaped region entries without crashing."""
+        config = {
+            'regions': [
+                {
+                    'East Asia and Pacific (EAP)': (
+                        'Includes China, Indonesia, Pacific Island States, and Philippines.'
+                    )
+                }
+            ],
+            'max_age_days': 30,
+        }
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+        entries = [
+            {
+                'title': 'Digital Services Program',
+                'description': 'National rollout planned in Indonesia and neighboring markets.',
+                'published': now_iso,
+                'source': 'https://example.com',
+                'link': 'https://example.com/1',
+            },
+            {
+                'title': 'Digital Services Program',
+                'description': 'National rollout planned in Germany and Austria.',
+                'published': now_iso,
+                'source': 'https://example.com',
+                'link': 'https://example.com/2',
+            },
+        ]
+
+        filtered = filter_entries(entries, config)
+
+        assert len(filtered) == 1
+        assert filtered[0]['link'] == 'https://example.com/1'
+        assert filtered[0].get('matched_regions') == ['EAP']
+
 
 class TestMarkdownOutput:
     """Tests for markdown output generation."""

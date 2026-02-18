@@ -80,6 +80,47 @@ REGION_GROUP_TERMS = {
 }
 
 
+def extract_region_labels(regions: Any) -> List[str]:
+    """Normalize configured regions into a flat list of string labels.
+
+    Supports legacy list[str] as well as YAML list entries that parse as dicts,
+    e.g. `- East Asia and Pacific (EAP): Includes ...`.
+    """
+    if not regions:
+        return []
+
+    if isinstance(regions, str):
+        return [regions.strip()] if regions.strip() else []
+
+    items = regions if isinstance(regions, (list, tuple, set)) else [regions]
+    labels: List[str] = []
+
+    for item in items:
+        if isinstance(item, str):
+            value = item.strip()
+            if value:
+                labels.append(value)
+            continue
+
+        if isinstance(item, dict):
+            for key, value in item.items():
+                key_text = str(key).strip()
+                if key_text:
+                    labels.append(key_text)
+
+                if isinstance(value, str):
+                    value_text = value.strip()
+                    if value_text:
+                        labels.append(value_text)
+            continue
+
+        value = str(item).strip()
+        if value:
+            labels.append(value)
+
+    return labels
+
+
 def normalize_region_group(region_label: str) -> Optional[str]:
     """Normalize a configured region label to a canonical region group code."""
     if not region_label:
@@ -104,17 +145,17 @@ def normalize_region_group(region_label: str) -> Optional[str]:
     return None
 
 
-def get_configured_region_groups(regions: List[str]) -> Set[str]:
+def get_configured_region_groups(regions: List[Any]) -> Set[str]:
     """Return canonical region group codes configured by the user."""
     configured_groups = set()
-    for region in regions or []:
+    for region in extract_region_labels(regions):
         group = normalize_region_group(region)
         if group:
             configured_groups.add(group)
     return configured_groups
 
 
-def get_matched_region_groups(text: str, configured_regions: List[str]) -> Set[str]:
+def get_matched_region_groups(text: str, configured_regions: List[Any]) -> Set[str]:
     """Find semantic region-group matches from text for configured regions."""
     if not text or not configured_regions:
         return set()
@@ -156,6 +197,10 @@ def load_config(config_path: str = "config.yml") -> Dict[str, Any]:
     
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
+
+    if not isinstance(config, dict):
+        print("Error: config.yml must contain a YAML mapping/object at the top level.", file=sys.stderr)
+        sys.exit(1)
     
     # Validate required fields
     required_fields = ['keywords', 'regions', 'min_budget', 'max_age_days', 'max_results']
@@ -180,6 +225,8 @@ def load_config(config_path: str = "config.yml") -> Dict[str, Any]:
             elif field == 'max_results':
                 print(f"  max_results: 20", file=sys.stderr)
             sys.exit(1)
+
+    config['regions'] = extract_region_labels(config.get('regions', []))
     
     return config
 
@@ -559,13 +606,14 @@ def filter_entries(entries: List[Dict[str, Any]], config: Dict[str, Any]) -> Lis
             continue
 
         configured_regions = config.get('regions', [])
-        if configured_regions:
+        configured_region_labels = extract_region_labels(configured_regions)
+        if configured_region_labels:
             text = f"{entry.get('title', '')} {entry.get('description', '')}"
-            matched_region_groups = get_matched_region_groups(text, configured_regions)
+            matched_region_groups = get_matched_region_groups(text, configured_region_labels)
             if not matched_region_groups:
                 fallback_match = any(
                     region and region.lower() in text.lower()
-                    for region in configured_regions
+                    for region in configured_region_labels
                 )
                 if not fallback_match:
                     continue
