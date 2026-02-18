@@ -1,5 +1,7 @@
 """Source weighting functionality for RFP Intelligence."""
 
+from urllib.parse import urlparse
+
 
 def apply_source_weighting(item_source_url, source_weights_config):
     """
@@ -13,13 +15,16 @@ def apply_source_weighting(item_source_url, source_weights_config):
     if item_source_url in source_weights_config:
         return float(source_weights_config[item_source_url])
     try:
-        from urllib.parse import urlparse
         domain = urlparse(item_source_url).netloc
-        for key, val in source_weights_config.items():
-            if key == "default":
-                continue
-            if key in domain or domain in key:
-                return float(val)
-    except Exception:
+        if domain:  # Only match if domain is not empty
+            for key, val in source_weights_config.items():
+                if key == "default":
+                    continue
+                # Check if key is in domain (subdomain match) or exact match
+                # This handles cases like 'github.com' matching 'api.github.com'
+                if key in domain or domain == key:
+                    return float(val)
+    except (ValueError, TypeError):
+        # Handle URL parsing errors or type conversion issues
         pass
     return float(source_weights_config.get("default", 0.5))

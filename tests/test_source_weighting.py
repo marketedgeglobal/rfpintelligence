@@ -86,9 +86,9 @@ class TestApplySourceWeighting(unittest.TestCase):
             "api.github.com": 0.9,
             "default": 0.5
         }
-        # Should match github.com first (depends on dict iteration order)
+        # Since Python 3.7+, dict order is guaranteed, so github.com matches first
         result = apply_source_weighting("https://api.github.com/repos", config)
-        self.assertIn(result, [0.7, 0.9])  # Either match is valid
+        self.assertEqual(result, 0.7)
 
     def test_exact_match_takes_precedence_over_domain(self):
         """Test that exact URL match takes precedence over domain match."""
