@@ -1,0 +1,36 @@
+# RFP Intelligence Configuration
+# Replace all placeholder values with your actual criteria
+
+# Keywords to match in RFP titles and descriptions
+# Example: ['software', 'IT services', 'consulting', 'cloud', 'development']
+keywords:
+  - REPLACE_WITH_YOUR_KEYWORD_1
+  - REPLACE_WITH_YOUR_KEYWORD_2
+  - REPLACE_WITH_YOUR_KEYWORD_3
+
+# Regions of interest (used for filtering if available in feed)
+# Example: ['US', 'United States', 'EU', 'European Union', 'UK']
+regions:
+  - REPLACE_WITH_YOUR_REGION_1
+  - REPLACE_WITH_YOUR_REGION_2
+
+# Minimum budget threshold in USD
+# Example: 50000 for $50,000
+min_budget: null  # TODO: Set your minimum budget (e.g., 50000)
+
+# Maximum age of RFPs to consider (in days)
+# Example: 30 for RFPs from the last 30 days
+max_age_days: null  # TODO: Set maximum age in days (e.g., 30)
+
+# Maximum number of results to output
+# Example: 20 to show top 20 RFPs
+max_results: null  # TODO: Set maximum results (e.g., 20)
+
+# Optional: Source weights (prioritize certain feeds)
+# Higher weight = higher priority in scoring
+# Example:
+# source_weights:
+#   'trusted-source.gov': 1.5
+#   'medium-source.com': 1.0
+#   'low-priority.org': 0.5
+source_weights: {}
