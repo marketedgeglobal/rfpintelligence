@@ -16,6 +16,10 @@ def extract_budget(text, min_budget_config):
     - If multiple matches, return the largest numeric value found
     - If no numeric budget found but phrases like "small purchase" or "under $50k" appear, return None but include matched_text
     - Use min_budget_config to decide whether a found value is meaningful
+    
+    Args:
+        text: The text to extract budget from
+        min_budget_config: Minimum budget threshold (reserved for future use to filter low values)
     """
     if not text:
         return {"budget_value": None, "budget_currency": None, "budget_text": None}
@@ -25,13 +29,39 @@ def extract_budget(text, min_budget_config):
         return {"budget_value": None, "budget_currency": "USD", "budget_text": "indicated small/under threshold"}
     
     text = text.replace(",", "")
+    
+    candidates = []
+    
+    # First, extract ranges separately to handle both values
+    range_pattern = r"(\d+(?:\.\d+)?)([kKmM]?)[ ]?-(?:[ ]?)(\d+(?:\.\d+)?)([kKmM]?)"
+    for m in re.finditer(range_pattern, text):
+        try:
+            # Process first value in range
+            val1 = float(m.group(1))
+            suffix1 = m.group(2) if m.group(2) else ""
+            if suffix1 and suffix1.lower() == "k":
+                val1 = val1 * 1_000
+            if suffix1 and suffix1.lower() == "m":
+                val1 = val1 * 1_000_000
+            candidates.append((val1, m.group(0)))
+            
+            # Process second value in range
+            val2 = float(m.group(3))
+            suffix2 = m.group(4) if m.group(4) else ""
+            if suffix2 and suffix2.lower() == "k":
+                val2 = val2 * 1_000
+            if suffix2 and suffix2.lower() == "m":
+                val2 = val2 * 1_000_000
+            candidates.append((val2, m.group(0)))
+        except Exception:
+            continue
+    
+    # Then process other patterns
     patterns = [
         r"\$ ?(\d+(?:\.\d+)?)([kKmM]?)",
         r"USD ?(\d+(?:\.\d+)?)([kKmM]?)",
         r"(\d+(?:\.\d+)?)([kKmM]?) ?USD",
-        r"(\d+(?:\.\d+)?)[ ]?-(?:[ ]?)(\d+(?:\.\d+)?)[ ]?(k|K|m|M)?"
     ]
-    candidates = []
     for p in patterns:
         for m in re.finditer(p, text):
             try:
