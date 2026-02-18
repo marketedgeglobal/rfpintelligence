@@ -26,6 +26,8 @@ from collect_rfps import (
     score_keyword_match,
     score_budget,
     score_recency,
+    generate_markdown_output,
+    get_priority_band,
 )
 
 
@@ -334,6 +336,88 @@ class TestScoreItem:
         
         assert 'budget' in entry
         assert entry['budget'] == 250000.0
+
+
+class TestMarkdownOutput:
+    """Tests for markdown output generation."""
+
+    def test_get_priority_band_thresholds(self):
+        """Test priority band mapping at threshold boundaries."""
+        assert get_priority_band(0.60) == 'High'
+        assert get_priority_band(0.59) == 'Medium'
+        assert get_priority_band(0.40) == 'Medium'
+        assert get_priority_band(0.39) == 'Low'
+
+    def test_generate_markdown_output_includes_mvp_sections(self, tmp_path):
+        """Test generated markdown contains MVP sections and opportunity details."""
+        output_path = tmp_path / 'index.md'
+        entries = [
+            {
+                'title': 'AI Procurement Platform',
+                'link': 'https://example.com/rfp-1',
+                'description': 'Implementation of an AI-powered procurement platform.',
+                'published': '2026-02-17T10:00:00+00:00',
+                'source': 'https://example.com/feed',
+                'source_name': 'Example Agency',
+                'score': 0.67,
+                'budget': 250000.0,
+            },
+            {
+                'title': 'Digital Transformation Services',
+                'link': 'https://example.com/rfp-2',
+                'description': 'Advisory support for digital transformation.',
+                'published': '2026-02-16T10:00:00+00:00',
+                'source': 'https://sample.org/rss',
+                'source_name': 'Sample Development Bank',
+                'score': 0.45,
+            },
+        ]
+        metrics = {
+            'fetched': 100,
+            'filtered': 50,
+            'deduplicated': 45,
+            'selected': 2,
+        }
+
+        generate_markdown_output(entries, metrics, str(output_path))
+        content = output_path.read_text()
+
+        assert '## Executive Summary' in content
+        assert '- **Total scanned:** 100' in content
+        assert '- **Qualifying opportunities:** 2' in content
+        assert '- **Priority split:** High 1, Medium 1, Low 0' in content
+
+        assert '## Priority Bands' in content
+        assert '**High Priority (score ≥ 0.600):**' in content
+        assert '**Medium Priority (0.400–0.599):**' in content
+        assert '**Low Priority (score < 0.400):**' in content
+
+        assert '## Top Opportunities' in content
+        assert '### 1. [AI Procurement Platform](https://example.com/rfp-1)' in content
+        assert '- **Score:** 0.670 (High)' in content
+        assert '- **Budget:** $250,000' in content
+        assert '### 2. [Digital Transformation Services](https://example.com/rfp-2)' in content
+        assert '- **Score:** 0.450 (Medium)' in content
+        assert '- **Budget:** Not detected' in content
+
+    def test_generate_markdown_output_handles_empty_entries(self, tmp_path):
+        """Test generated markdown for empty result sets."""
+        output_path = tmp_path / 'index.md'
+        metrics = {
+            'fetched': 20,
+            'filtered': 0,
+            'deduplicated': 0,
+            'selected': 0,
+        }
+
+        generate_markdown_output([], metrics, str(output_path))
+        content = output_path.read_text()
+
+        assert '## Executive Summary' in content
+        assert '- **Qualifying opportunities:** 0' in content
+        assert '- **Priority split:** High 0, Medium 0, Low 0' in content
+        assert '## Top Opportunities' in content
+        assert 'No qualifying opportunities for this run.' in content
 
 
 if __name__ == '__main__':

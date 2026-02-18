@@ -530,6 +530,79 @@ def save_last_run(entries: List[Dict[str, Any]], last_run_path: str = "data/last
         json.dump(data, f, indent=2)
 
 
+def get_priority_band(score: float) -> str:
+    """
+    Map score to a priority band label.
+
+    Args:
+        score: Entry score between 0.0 and 1.0
+
+    Returns:
+        Priority band label
+    """
+    if score >= 0.60:
+        return "High"
+    if score >= 0.40:
+        return "Medium"
+    return "Low"
+
+
+def format_currency(amount: Optional[float]) -> str:
+    """
+    Format numeric amount as USD currency.
+
+    Args:
+        amount: Numeric amount
+
+    Returns:
+        Formatted currency string or "Not detected"
+    """
+    if amount is None:
+        return "Not detected"
+    return f"${amount:,.0f}"
+
+
+def format_published_date(published: Optional[str]) -> str:
+    """
+    Format ISO timestamp as YYYY-MM-DD.
+
+    Args:
+        published: ISO 8601 timestamp
+
+    Returns:
+        Formatted date string or "Unknown"
+    """
+    if not published:
+        return "Unknown"
+    try:
+        return datetime.fromisoformat(published).strftime('%Y-%m-%d')
+    except (ValueError, TypeError):
+        return "Unknown"
+
+
+def get_source_display_name(entry: Dict[str, Any]) -> str:
+    """
+    Return best display name for an entry source.
+
+    Args:
+        entry: Entry dictionary
+
+    Returns:
+        Source display name
+    """
+    source_name = entry.get('source_name')
+    if source_name:
+        return source_name
+
+    source_url = entry.get('source', '')
+    if source_url:
+        parsed = urlparse(source_url)
+        if parsed.netloc:
+            return parsed.netloc
+
+    return "Unknown source"
+
+
 def generate_markdown_output(
     entries: List[Dict[str, Any]],
     metrics: Dict[str, int],
@@ -558,6 +631,20 @@ def generate_markdown_output(
     max_score = max((entry.get('score', 0.0) for entry in entries), default=0.0)
     min_score = min((entry.get('score', 0.0) for entry in entries), default=0.0)
 
+    high_priority = sum(1 for entry in entries if entry.get('score', 0.0) >= 0.60)
+    medium_priority = sum(1 for entry in entries if 0.40 <= entry.get('score', 0.0) < 0.60)
+    low_priority = len(entries) - high_priority - medium_priority
+
+    source_counts = {}
+    for entry in entries:
+        source_name = get_source_display_name(entry)
+        source_counts[source_name] = source_counts.get(source_name, 0) + 1
+
+    top_sources = sorted(source_counts.items(), key=lambda x: x[1], reverse=True)[:3]
+    top_sources_text = ", ".join(
+        f"{name} ({count})" for name, count in top_sources
+    ) if top_sources else "No sources available"
+
     lines = [
         "---",
         "title: RFP Intelligence Analysis",
@@ -567,6 +654,13 @@ def generate_markdown_output(
         "# RFP Intelligence Analysis",
         "",
         f"*Last updated: {timestamp}*",
+        "",
+        "## Executive Summary",
+        "",
+        f"- **Total scanned:** {metrics.get('fetched', 0)}",
+        f"- **Qualifying opportunities:** {len(entries)}",
+        f"- **Priority split:** High {high_priority}, Medium {medium_priority}, Low {low_priority}",
+        f"- **Top sources:** {top_sources_text}",
         "",
         "## Pipeline Metrics",
         "",
@@ -582,13 +676,59 @@ def generate_markdown_output(
         f"- **Highest score:** {max_score:.3f}",
         f"- **Lowest score:** {min_score:.3f}",
         "",
+        "## Priority Bands",
+        "",
+        "- **High Priority (score ≥ 0.600):** Best-fit opportunities",
+        "- **Medium Priority (0.400–0.599):** Relevant but needs review",
+        "- **Low Priority (score < 0.400):** Monitor only",
+        f"- **Current distribution:** High {high_priority}, Medium {medium_priority}, Low {low_priority}",
+        "",
+        "## Top Opportunities",
+        "",
+    ]
+
+    if not entries:
+        lines.extend([
+            "No qualifying opportunities for this run.",
+            "",
+        ])
+    else:
+        for index, entry in enumerate(entries, start=1):
+            title = entry.get('title', 'Untitled opportunity').strip() or 'Untitled opportunity'
+            link = entry.get('link', '').strip()
+            score = entry.get('score', 0.0)
+            priority = get_priority_band(score)
+            published = format_published_date(entry.get('published'))
+            source = get_source_display_name(entry)
+            budget = format_currency(entry.get('budget'))
+            summary = (entry.get('description') or '').strip()
+
+            heading = f"### {index}. {title}"
+            if link:
+                heading = f"### {index}. [{title}]({link})"
+
+            lines.extend([
+                heading,
+                f"- **Score:** {score:.3f} ({priority})",
+                f"- **Published:** {published}",
+                f"- **Source:** {source}",
+                f"- **Budget:** {budget}",
+            ])
+
+            if summary:
+                lines.append(f"- **Summary:** {summary}")
+
+            lines.append("")
+
+    lines.extend([
+        "",
         "## Run Metadata",
         "",
         "- **Output file:** `docs/index.md`",
         "- **Metadata file:** `data/last_run.json`",
         "- **Timezone:** UTC",
         "",
-    ]
+    ])
     
     new_content = "\n".join(lines)
     
