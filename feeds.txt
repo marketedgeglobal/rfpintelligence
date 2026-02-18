@@ -3,19 +3,35 @@
 # Lines starting with # are comments and will be ignored
 #
 # Feed URLs
+# ReliefWeb Humanitarian Updates
 https://reliefweb.int/updates/rss.xml
+# Asian Development Bank (ADB) Business Opportunities
 https://feeds.feedburner.com/procurement-notices
+# World Bank Procurement & Project Tenders
 https://projects.worldbank.org/en/projects-operations/procurement/rss
+# UN News - Economic Development
 https://news.un.org/feed/subscribe/en/news/topic/economic-development/feed/rss.xml
+# UN News - Humanitarian Aid
 https://news.un.org/feed/subscribe/en/news/topic/humanitarian-aid/feed/rss.xml
+# UN OCHA (Humanitarian Affairs)
 https://www.unocha.org/rss.xml
+# UNHCR (Refugees)
 https://www.unhcr.org/rss.xml
+# EU Tenders (TED)
 https://ted.europa.eu/TED/rss/en/RSS.xml
+# EU International Partnerships
 https://international-partnerships.ec.europa.eu/newsroom/feed_en
+# USAID Press Releases
 https://www.usaid.gov/news-information/press-releases/rss.xml
+# OECD Development Matters
 https://oecd-development-matters.org/feed/
+# African Development Bank (AfDB) Procurement
 https://www.afdb.org/en/projects-and-operations/procurement/rss
+# Inter-American Development Bank (IDB)
 https://www.iadb.org/en/rss
+# Green Climate Fund (GCF)
 https://www.greenclimate.fund/rss.xml
+# Global Environment Facility (GEF)
 https://www.thegef.org/rss.xml
+# United Nations Global Marketplace
 https://www.ungm.org/Public/Notice

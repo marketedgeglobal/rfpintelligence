@@ -18,12 +18,48 @@ An automated system for collecting, filtering, scoring, and ranking Request for 
 Edit `feeds.txt` and add your RSS feed URLs (one per line):
 
 ```txt
-https://www.example-procurement.gov/rfps/feed.xml
-https://contracts.example.com/opportunities/rss
-https://procurement.example.org/feed
+ReliefWeb Humanitarian Updates - https://reliefweb.int/updates/rss.xml
+Asian Development Bank (ADB) Business Opportunities - https://feeds.feedburner.com/procurement-notices
+World Bank Procurement & Project Tenders - https://projects.worldbank.org/en/projects-operations/procurement/rss
+UN News - Economic Development - https://news.un.org/feed/subscribe/en/news/topic/economic-development/feed/rss.xml
+UN News - Humanitarian Aid - https://news.un.org/feed/subscribe/en/news/topic/humanitarian-aid/feed/rss.xml
+UN OCHA (Humanitarian Affairs) - https://www.unocha.org/rss.xml
+UNHCR (Refugees) - https://www.unhcr.org/rss.xml
+EU Tenders (TED) - https://ted.europa.eu/TED/rss/en/RSS.xml
+EU International Partnerships - https://international-partnerships.ec.europa.eu/newsroom/feed_en
+USAID Press Releases - https://www.usaid.gov/news-information/press-releases/rss.xml
+OECD Development Matters - https://oecd-development-matters.org/feed/
+African Development Bank (AfDB) Procurement - https://www.afdb.org/en/projects-and-operations/procurement/rss
+Inter-American Development Bank (IDB) - https://www.iadb.org/en/rss
+Green Climate Fund (GCF) - https://www.greenclimate.fund/rss.xml
+Global Environment Facility (GEF) - https://www.thegef.org/rss.xml
+United Nations Global Marketplace - https://www.ungm.org/Public/Notice
 ```
 
 Lines starting with `#` are treated as comments.
+
+### Feeds
+
+Current RSS feeds used by this project:
+
+```txt
+https://reliefweb.int/updates/rss.xml
+https://feeds.feedburner.com/procurement-notices
+https://projects.worldbank.org/en/projects-operations/procurement/rss
+https://news.un.org/feed/subscribe/en/news/topic/economic-development/feed/rss.xml
+https://news.un.org/feed/subscribe/en/news/topic/humanitarian-aid/feed/rss.xml
+https://www.unocha.org/rss.xml
+https://www.unhcr.org/rss.xml
+https://ted.europa.eu/TED/rss/en/RSS.xml
+https://international-partnerships.ec.europa.eu/newsroom/feed_en
+https://www.usaid.gov/news-information/press-releases/rss.xml
+https://oecd-development-matters.org/feed/
+https://www.afdb.org/en/projects-and-operations/procurement/rss
+https://www.iadb.org/en/rss
+https://www.greenclimate.fund/rss.xml
+https://www.thegef.org/rss.xml
+https://www.ungm.org/Public/Notice
+```
 
 ### 2. Configure Criteria
 
