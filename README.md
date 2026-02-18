@@ -76,10 +76,11 @@ keywords:
 
 # Regions of interest
 regions:
-  - US
-  - United States
-  - EU
-  - European Union
+  - East Asia and Pacific (EAP): Includes China, Indonesia, Pacific Island States, and Philippines.
+  - Latin America and Caribbean (LAC): Covers South America, Central America, and Caribbean islands.
+  - Middle East, North Africa, Afghanistan, & Pakistan (MENAP): Often grouped due to regional stability and development similarities.
+  - South Asia (SAR): Includes India, Pakistan, Bangladesh, and Afghanistan.
+  - Sub-Saharan Africa (SSA): Focuses on countries south of the Sahara Desert.
 
 # Minimum budget threshold in USD
 min_budget: 50000

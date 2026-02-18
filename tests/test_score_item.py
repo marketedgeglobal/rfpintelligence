@@ -192,6 +192,49 @@ class TestScoreItem(unittest.TestCase):
         score3 = score_item(item3, config)
         
         self.assertGreater(score1, score2)
+
+    def test_region_relevance_scoring(self):
+        """Test semantic region matching increases score for configured groups."""
+        config = dict(self.base_config)
+        config["regions"] = [
+            "East Asia and Pacific (EAP): Includes China, Indonesia, Pacific Island States, and Philippines."
+        ]
+
+        item1 = dict(self.base_item)
+        item1["summary"] = "Program support across Indonesia ministries"
+        score1 = score_item(item1, config)
+
+        item2 = dict(self.base_item)
+        item2["summary"] = "Program support across Germany ministries"
+        score2 = score_item(item2, config)
+
+        self.assertGreater(score1, score2)
+        self.assertEqual(item1.get("matched_regions"), ["EAP"])
+
+    def test_region_weight_override(self):
+        """Test custom region weight in config.weights is applied."""
+        config = dict(self.base_config)
+        config["regions"] = [
+            "South Asia (SAR): Includes India, Pakistan, Bangladesh, and Afghanistan."
+        ]
+        config["weights"] = {
+            "keyword": 0.3,
+            "budget": 0.25,
+            "recency": 0.2,
+            "source": 0.1,
+            "region": 0.15,
+        }
+
+        item1 = dict(self.base_item)
+        item1["summary"] = "Program expansion in India and Bangladesh"
+        score1 = score_item(item1, config)
+
+        item2 = dict(self.base_item)
+        item2["summary"] = "Program expansion in Canada and Mexico"
+        score2 = score_item(item2, config)
+
+        self.assertGreater(score1, score2)
+        self.assertEqual(item1.get("matched_regions"), ["SAR"])
     
     def test_custom_weights(self):
         """Test with custom weight configuration."""

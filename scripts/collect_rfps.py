@@ -25,7 +25,7 @@ import sys
 import yaml
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Set
 from urllib.parse import urlparse
 import requests
 from email.utils import parsedate_to_datetime
@@ -39,6 +39,101 @@ FEATURES = [
     "📅 **Weekly Automation**: GitHub Actions workflow runs weekly and commits updates",
     "📄 **Clean Output**: Generates formatted Markdown documentation",
 ]
+
+
+REGION_GROUP_TERMS = {
+    "EAP": [
+        "east asia and pacific",
+        "eap",
+        "china",
+        "indonesia",
+        "philippines",
+        "pacific island states",
+    ],
+    "LAC": [
+        "latin america and caribbean",
+        "lac",
+        "south america",
+        "central america",
+        "caribbean",
+    ],
+    "MENAP": [
+        "middle east",
+        "north africa",
+        "afghanistan",
+        "pakistan",
+        "menap",
+    ],
+    "SAR": [
+        "south asia",
+        "sar",
+        "india",
+        "pakistan",
+        "bangladesh",
+        "afghanistan",
+    ],
+    "SSA": [
+        "sub-saharan africa",
+        "ssa",
+        "sahara",
+    ],
+}
+
+
+def normalize_region_group(region_label: str) -> Optional[str]:
+    """Normalize a configured region label to a canonical region group code."""
+    if not region_label:
+        return None
+
+    value = region_label.strip().upper()
+    for group in REGION_GROUP_TERMS:
+        if f"({group})" in value or re.search(rf"\b{group}\b", value):
+            return group
+
+    if "EAST ASIA" in value or "PACIFIC" in value:
+        return "EAP"
+    if "LATIN AMERICA" in value or "CARIBBEAN" in value:
+        return "LAC"
+    if "MIDDLE EAST" in value or "NORTH AFRICA" in value:
+        return "MENAP"
+    if "SOUTH ASIA" in value:
+        return "SAR"
+    if "SUB-SAHARAN" in value:
+        return "SSA"
+
+    return None
+
+
+def get_configured_region_groups(regions: List[str]) -> Set[str]:
+    """Return canonical region group codes configured by the user."""
+    configured_groups = set()
+    for region in regions or []:
+        group = normalize_region_group(region)
+        if group:
+            configured_groups.add(group)
+    return configured_groups
+
+
+def get_matched_region_groups(text: str, configured_regions: List[str]) -> Set[str]:
+    """Find semantic region-group matches from text for configured regions."""
+    if not text or not configured_regions:
+        return set()
+
+    configured_groups = get_configured_region_groups(configured_regions)
+    if not configured_groups:
+        return set()
+
+    text_lower = text.lower()
+    matched_groups = set()
+
+    for group in configured_groups:
+        terms = REGION_GROUP_TERMS.get(group, [])
+        for term in terms:
+            if re.search(rf"\b{re.escape(term.lower())}\b", text_lower):
+                matched_groups.add(group)
+                break
+
+    return matched_groups
 
 
 def load_config(config_path: str = "config.yml") -> Dict[str, Any]:
@@ -74,7 +169,10 @@ def load_config(config_path: str = "config.yml") -> Dict[str, Any]:
             if field == 'keywords':
                 print(f"  keywords: ['software', 'IT', 'consulting']", file=sys.stderr)
             elif field == 'regions':
-                print(f"  regions: ['US', 'EU', 'UK']", file=sys.stderr)
+                print(
+                    "  regions: ['East Asia and Pacific (EAP)', 'Latin America and Caribbean (LAC)']",
+                    file=sys.stderr,
+                )
             elif field == 'min_budget':
                 print(f"  min_budget: 10000", file=sys.stderr)
             elif field == 'max_age_days':
@@ -412,18 +510,25 @@ def calculate_score(entry: Dict[str, Any], config: Dict[str, Any]) -> float:
     budget_score = score_budget(budget, config['min_budget'])
     recency_score = score_recency(entry['published'], config['max_age_days'])
     source_weight = apply_source_weighting(entry['source'], config)
+    matched_region_groups = get_matched_region_groups(text, config.get('regions', []))
+    region_score = 1.0 if matched_region_groups else 0.0
     
     # Weighted combination
+    region_weight = 0.1 if config.get('regions') else 0.0
+    keyword_weight = 0.4 - region_weight
     total_score = (
-        keyword_score * 0.4 +
+        keyword_score * keyword_weight +
         budget_score * 0.3 +
         recency_score * 0.2 +
-        source_weight * 0.1
+        source_weight * 0.1 +
+        region_score * region_weight
     )
     
     # Store budget in entry for display
     if budget:
         entry['budget'] = budget
+    if matched_region_groups:
+        entry['matched_regions'] = sorted(matched_region_groups)
     
     return total_score
 
@@ -452,6 +557,20 @@ def filter_entries(entries: List[Dict[str, Any]], config: Dict[str, Any]) -> Lis
                 continue
         except (ValueError, TypeError):
             continue
+
+        configured_regions = config.get('regions', [])
+        if configured_regions:
+            text = f"{entry.get('title', '')} {entry.get('description', '')}"
+            matched_region_groups = get_matched_region_groups(text, configured_regions)
+            if not matched_region_groups:
+                fallback_match = any(
+                    region and region.lower() in text.lower()
+                    for region in configured_regions
+                )
+                if not fallback_match:
+                    continue
+            else:
+                entry['matched_regions'] = sorted(matched_region_groups)
         
         filtered.append(entry)
     
@@ -665,6 +784,15 @@ def generate_markdown_output(
         f"{name} ({count})" for name, count in top_sources
     ) if top_sources else "No sources available"
 
+    region_counts = {}
+    for entry in entries:
+        for region_group in entry.get('matched_regions', []):
+            region_counts[region_group] = region_counts.get(region_group, 0) + 1
+
+    region_coverage_text = ", ".join(
+        f"{region} ({count})" for region, count in sorted(region_counts.items())
+    ) if region_counts else "No matched regions detected"
+
     lines = [
         "---",
         "title: RFP Intelligence Analysis",
@@ -703,6 +831,10 @@ def generate_markdown_output(
         "- **Low Priority (score < 0.400):** Monitor only",
         f"- **Current distribution:** High {high_priority}, Medium {medium_priority}, Low {low_priority}",
         "",
+        "## Region Coverage",
+        "",
+        f"- **Matched region groups:** {region_coverage_text}",
+        "",
         "## Top Opportunities",
         "",
     ]
@@ -721,6 +853,7 @@ def generate_markdown_output(
             published = format_published_date(entry.get('published'))
             source = get_source_display_name(entry)
             budget = format_currency(entry.get('budget'))
+            matched_regions = entry.get('matched_regions', [])
             summary = sanitize_summary(entry.get('description'))
 
             heading = f"### {index}. {title}"
@@ -734,6 +867,9 @@ def generate_markdown_output(
                 f"- **Source:** {source}",
                 f"- **Budget:** {budget}",
             ])
+
+            if matched_regions:
+                lines.append(f"- **Matched Regions:** {', '.join(matched_regions)}")
 
             if summary:
                 lines.append(f"- **Summary:** {summary}")

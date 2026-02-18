@@ -26,6 +26,7 @@ from collect_rfps import (
     score_keyword_match,
     score_budget,
     score_recency,
+    filter_entries,
     generate_markdown_output,
     get_priority_band,
 )
@@ -337,6 +338,73 @@ class TestScoreItem:
         assert 'budget' in entry
         assert entry['budget'] == 250000.0
 
+    def test_calculate_score_region_relevance_boost(self):
+        """Test that region mentions increase score when region groups are configured."""
+        config = {
+            'keywords': ['software'],
+            'regions': ['East Asia and Pacific (EAP): Includes China, Indonesia, Pacific Island States, and Philippines.'],
+            'min_budget': 100000,
+            'max_age_days': 30,
+            'source_weights': {}
+        }
+
+        entry_with_region = {
+            'title': 'Software Procurement Program',
+            'description': 'Implementation support for agencies in Indonesia',
+            'published': datetime.now(timezone.utc).isoformat(),
+            'source': 'https://example.com'
+        }
+
+        entry_without_region = {
+            'title': 'Software Procurement Program',
+            'description': 'Implementation support for agencies in Germany',
+            'published': datetime.now(timezone.utc).isoformat(),
+            'source': 'https://example.com'
+        }
+
+        score_with_region = calculate_score(entry_with_region, config)
+        score_without_region = calculate_score(entry_without_region, config)
+
+        assert score_with_region > score_without_region
+        assert entry_with_region.get('matched_regions') == ['EAP']
+
+
+class TestRegionFiltering:
+    """Tests for semantic region filtering behavior."""
+
+    def test_filter_entries_semantic_region_group_matching(self):
+        """Test filtering uses semantic country-to-region matching for configured groups."""
+        config = {
+            'regions': [
+                'East Asia and Pacific (EAP): Includes China, Indonesia, Pacific Island States, and Philippines.'
+            ],
+            'max_age_days': 30,
+        }
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+        entries = [
+            {
+                'title': 'Digital Services Program',
+                'description': 'National rollout planned in Indonesia and neighboring markets.',
+                'published': now_iso,
+                'source': 'https://example.com',
+                'link': 'https://example.com/1',
+            },
+            {
+                'title': 'Digital Services Program',
+                'description': 'National rollout planned in Germany and Austria.',
+                'published': now_iso,
+                'source': 'https://example.com',
+                'link': 'https://example.com/2',
+            },
+        ]
+
+        filtered = filter_entries(entries, config)
+
+        assert len(filtered) == 1
+        assert filtered[0]['link'] == 'https://example.com/1'
+        assert filtered[0].get('matched_regions') == ['EAP']
+
 
 class TestMarkdownOutput:
     """Tests for markdown output generation."""
@@ -361,6 +429,7 @@ class TestMarkdownOutput:
                 'source_name': 'Example Agency',
                 'score': 0.67,
                 'budget': 250000.0,
+                'matched_regions': ['EAP'],
             },
             {
                 'title': 'Digital Transformation Services',
@@ -391,11 +460,14 @@ class TestMarkdownOutput:
         assert '**High Priority (score ≥ 0.600):**' in content
         assert '**Medium Priority (0.400–0.599):**' in content
         assert '**Low Priority (score < 0.400):**' in content
+        assert '## Region Coverage' in content
+        assert '- **Matched region groups:** EAP (1)' in content
 
         assert '## Top Opportunities' in content
         assert '### 1. [AI Procurement Platform](https://example.com/rfp-1)' in content
         assert '- **Score:** 0.670 (High)' in content
         assert '- **Budget:** $250,000' in content
+        assert '- **Matched Regions:** EAP' in content
         assert '- **Summary:** Implementation of an AI-powered procurement platform.' in content
         assert '<span>' not in content
         assert '### 2. [Digital Transformation Services](https://example.com/rfp-2)' in content
@@ -418,6 +490,8 @@ class TestMarkdownOutput:
         assert '## Executive Summary' in content
         assert '- **Qualifying opportunities:** 0' in content
         assert '- **Priority split:** High 0, Medium 0, Low 0' in content
+        assert '## Region Coverage' in content
+        assert '- **Matched region groups:** No matched regions detected' in content
         assert '## Top Opportunities' in content
         assert 'No qualifying opportunities for this run.' in content
 
