@@ -84,8 +84,8 @@ class TestExtractBudget(unittest.TestCase):
     def test_range_pattern(self):
         """Test range pattern X-Y"""
         result = extract_budget("Budget: $50k-$200k", 0)
-        # Should extract the larger value
-        self.assertGreater(result["budget_value"], 0)
+        # Should extract the larger value from the range
+        self.assertEqual(result["budget_value"], 200000.0)
         self.assertEqual(result["budget_currency"], "USD")
         
     def test_small_purchase_phrase(self):

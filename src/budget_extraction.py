@@ -25,6 +25,7 @@ def extract_budget(text, min_budget_config):
         return {"budget_value": None, "budget_currency": None, "budget_text": None}
     
     # Check for phrases indicating no specific budget first
+    # Note: "under $X" is treated as no specific budget since it's a threshold, not a budget allocation
     if re.search(r"under \$?\s?(\d+)(k|K)?|small purchase|not to exceed", text, re.IGNORECASE):
         return {"budget_value": None, "budget_currency": "USD", "budget_text": "indicated small/under threshold"}
     
@@ -53,7 +54,7 @@ def extract_budget(text, min_budget_config):
             if suffix2 and suffix2.lower() == "m":
                 val2 = val2 * 1_000_000
             candidates.append((val2, m.group(0)))
-        except Exception:
+        except (ValueError, AttributeError, IndexError):
             continue
     
     # Then process other patterns
@@ -74,7 +75,7 @@ def extract_budget(text, min_budget_config):
                     if suffix and suffix.lower() == "m":
                         val = val * 1_000_000
                     candidates.append((val, m.group(0)))
-            except Exception:
+            except (ValueError, AttributeError, IndexError):
                 continue
     if not candidates:
         return {"budget_value": None, "budget_currency": None, "budget_text": None}
