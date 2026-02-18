@@ -138,12 +138,33 @@ def extract_budget(text: str) -> Optional[float]:
         return None
     
     # Common patterns for budget mentions
+    # Pattern 1: decimal number followed by million/M (e.g., "2.5 million", "1.5M")
+    pattern = r'(\d+(?:\.\d+)?)\s*(?:million|M)\s*(?:USD|\$|dollars)?'
+    match = re.search(pattern, text, re.IGNORECASE)
+    if match:
+        try:
+            amount = float(match.group(1))
+            return amount * 1_000_000
+        except (ValueError, AttributeError, IndexError):
+            pass
+    
+    # Pattern 2: $ or USD with K suffix
+    pattern = r'(?:\$|USD)\s*(\d{1,3}(?:,\d{3})*(?:\.\d+)?)\s*K'
+    match = re.search(pattern, text, re.IGNORECASE)
+    if match:
+        try:
+            amount_str = match.group(1).replace(',', '')
+            amount = float(amount_str)
+            return amount * 1_000
+        except (ValueError, AttributeError, IndexError):
+            pass
+    
+    # Pattern 3: standard formats with $ or USD
     patterns = [
-        r'\$\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:million|M)?',
-        r'USD\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:million|M|K)?',
-        r'(?:budget|value|worth)[\s:]*\$?\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:million|M|K)?',
-        r'€\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:million|M)?',
-        r'(\d+(?:\.\d+)?)\s*(?:million|M)\s*(?:USD|\$|dollars)?',
+        r'\$\s*(\d{1,3}(?:,\d{3})+(?:\.\d{2})?)',
+        r'USD\s*(\d{1,3}(?:,\d{3})+(?:\.\d{2})?)',
+        r'(?:budget|value|worth)[\s:]*\$?\s*(\d{1,3}(?:,\d{3})+(?:\.\d{2})?)',
+        r'€\s*(\d{1,3}(?:,\d{3})+(?:\.\d{2})?)',
     ]
     
     for pattern in patterns:
@@ -152,13 +173,6 @@ def extract_budget(text: str) -> Optional[float]:
             try:
                 amount_str = match.group(1).replace(',', '')
                 amount = float(amount_str)
-                
-                # Handle million/M suffix
-                if 'million' in match.group(0).lower() or match.group(0).endswith('M'):
-                    amount *= 1_000_000
-                elif match.group(0).endswith('K'):
-                    amount *= 1_000
-                
                 return amount
             except (ValueError, AttributeError, IndexError):
                 continue
