@@ -1,11 +1,20 @@
 ---
 title: RFP Intelligence
-updated: 2026-02-18 16:14:24 UTC
+updated: 2026-02-18 16:20:50 UTC
 ---
 
 # RFP Intelligence
 
-*Last updated: 2026-02-18 16:14:24 UTC*
+## Features
+
+- 🔍 **Automated Collection**: Fetches RFPs from multiple RSS feeds
+- 🎯 **Smart Filtering**: Filters by keywords, budget thresholds, regions, and recency
+- 📊 **Intelligent Scoring**: Ranks opportunities based on keyword matches, budget size, recency, and source priority
+- 🔄 **Deduplication**: Automatically removes duplicate entries
+- 📅 **Weekly Automation**: GitHub Actions workflow runs weekly and commits updates
+- 📄 **Clean Output**: Generates formatted Markdown documentation
+
+*Last updated: 2026-02-18 16:20:50 UTC*
 
 Found 20 relevant opportunities:
 

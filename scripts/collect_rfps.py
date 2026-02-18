@@ -30,6 +30,16 @@ import requests
 from email.utils import parsedate_to_datetime
 
 
+FEATURES = [
+    "🔍 **Automated Collection**: Fetches RFPs from multiple RSS feeds",
+    "🎯 **Smart Filtering**: Filters by keywords, budget thresholds, regions, and recency",
+    "📊 **Intelligent Scoring**: Ranks opportunities based on keyword matches, budget size, recency, and source priority",
+    "🔄 **Deduplication**: Automatically removes duplicate entries",
+    "📅 **Weekly Automation**: GitHub Actions workflow runs weekly and commits updates",
+    "📄 **Clean Output**: Generates formatted Markdown documentation",
+]
+
+
 def load_config(config_path: str = "config.yml") -> Dict[str, Any]:
     """
     Load and validate configuration from YAML file.
@@ -547,11 +557,20 @@ def generate_markdown_output(entries: List[Dict[str, Any]], output_path: str = "
         "",
         "# RFP Intelligence",
         "",
+        "## Features",
+        "",
+    ]
+
+    for feature in FEATURES:
+        lines.append(f"- {feature}")
+
+    lines.extend([
+        "",
         f"*Last updated: {timestamp}*",
         "",
         f"Found {len(entries)} relevant opportunities:",
         "",
-    ]
+    ])
     
     for i, entry in enumerate(entries, 1):
         lines.append(f"## {i}. {entry['title']}")
