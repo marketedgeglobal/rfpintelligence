@@ -174,6 +174,29 @@ Merge PRs in dependency order, resolving conflicts at each step:
 4. **Testing Gaps:** Integration testing across PRs may be needed
 5. **Package Structure:** PRs #4 and #5 both modify `__init__.py` and package structure
 
+## Updated Analysis Keywords
+
+```yaml
+keywords:
+  - climate adaptation
+  - climate resilience
+  - WASH
+  - water supply
+  - sanitation
+  - food security
+  - nutrition
+  - renewable energy
+  - energy access
+  - public health
+  - health systems
+  - education
+  - vocational training
+  - governance
+  - capacity building
+  - infrastructure
+  - urban development
+```
+
 ## Final Recommendation
 
 ### DO PUSH (MERGE) THE FOLLOWING PRs:

@@ -68,11 +68,23 @@ Edit `config.yml` and replace placeholder values with your actual criteria:
 ```yaml
 # Keywords to match in RFP titles and descriptions
 keywords:
-  - software
-  - IT services
-  - consulting
-  - cloud computing
-  - development
+  - climate adaptation
+  - climate resilience
+  - WASH
+  - water supply
+  - sanitation
+  - food security
+  - nutrition
+  - renewable energy
+  - energy access
+  - public health
+  - health systems
+  - education
+  - vocational training
+  - governance
+  - capacity building
+  - infrastructure
+  - urban development
 
 # Regions of interest
 regions:

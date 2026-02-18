@@ -2,13 +2,25 @@
 # Replace all placeholder values with your actual criteria
 
 # Keywords to match in RFP titles and descriptions
-# Example: ['software', 'IT services', 'consulting', 'cloud', 'development']
+# Example: ['climate adaptation', 'WASH', 'food security', 'renewable energy', 'public health']
 keywords:
-  - software
-  - IT services
-  - consulting
-  - cloud computing
-  - development
+  - climate adaptation
+  - climate resilience
+  - WASH
+  - water supply
+  - sanitation
+  - food security
+  - nutrition
+  - renewable energy
+  - energy access
+  - public health
+  - health systems
+  - education
+  - vocational training
+  - governance
+  - capacity building
+  - infrastructure
+  - urban development
 
 # Regions of interest (used for filtering if available in feed)
 # Example: ['East Asia and Pacific (EAP)', 'Latin America and Caribbean (LAC)']
