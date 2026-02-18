@@ -142,6 +142,7 @@ The GitHub Actions workflow (`.github/workflows/weekly-rfps.yml`) automatically:
 - ✅ Sets up Python 3.11
 - ✅ Installs dependencies
 - ✅ Runs the collection script
+- ✅ Verifies the `docs/index.md` live page still contains the required **Features** section
 - ✅ Commits `docs/index.md` and `data/last_run.json` only if they changed
 - ✅ Uses `github-actions[bot]` as the commit author
 

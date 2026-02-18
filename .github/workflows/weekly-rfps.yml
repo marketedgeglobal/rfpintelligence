@@ -29,6 +29,16 @@ jobs:
       - name: Run RFP collection
         run: python scripts/collect_rfps.py
 
+      - name: Verify live page features block
+        run: |
+          grep -Fq '## Features' docs/index.md
+          grep -Fq '🔍 **Automated Collection**: Fetches RFPs from multiple RSS feeds' docs/index.md
+          grep -Fq '🎯 **Smart Filtering**: Filters by keywords, budget thresholds, regions, and recency' docs/index.md
+          grep -Fq '📊 **Intelligent Scoring**: Ranks opportunities based on keyword matches, budget size, recency, and source priority' docs/index.md
+          grep -Fq '🔄 **Deduplication**: Automatically removes duplicate entries' docs/index.md
+          grep -Fq '📅 **Weekly Automation**: GitHub Actions workflow runs weekly and commits updates' docs/index.md
+          grep -Fq '📄 **Clean Output**: Generates formatted Markdown documentation' docs/index.md
+
       - name: Commit and push changes
         run: |
           if [ -n "$(git status --porcelain docs/index.md data/last_run.json 2>/dev/null)" ]; then
