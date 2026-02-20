@@ -4,26 +4,31 @@ updated: 2026-02-18 22:10:11 UTC
 ---
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
 	:root {
-		--meg-white: #ffffff;
-		--meg-charcoal: #1a1a1a;
-		--meg-teal: #00a3da;
-		--meg-teal-dark: #0085b2;
-		--meg-gray-bg: #f4f4f4;
-		--meg-gray-text: #555555;
-		--meg-border: #e5e7eb;
-		--meg-shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
-		--meg-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+		--meg-navy:    #242337; /* MEG hero / nav dark background        */
+		--meg-olive:   #393d32; /* MEG primary text / dark body colour   */
+		--meg-cream:   #f1e3c8; /* MEG warm text on dark backgrounds     */
+		--meg-fill:    #f1f3ee; /* MEG light section fill                */
+		--meg-white:   #ffffff;
+		--meg-blue:    #0088cb; /* MEG colour_4 — primary link / button  */
+		--meg-blue-lt: #7fccf7; /* MEG light-blue hover                  */
+		--meg-border:  #e2e2e2;
+		--meg-muted:   #8f8f8f;
+		--meg-shadow:  0 4px 12px rgba(36, 35, 55, 0.12);
 	}
 
 	/* ── Base ── */
+	html {
+		background: var(--meg-navy);
+	}
+
 	body,
 	.markdown-body {
-		background: var(--meg-white) !important;
-		color: var(--meg-charcoal) !important;
-		font-family: 'Montserrat', Arial, sans-serif !important;
+		background: var(--meg-navy) !important;
+		color: var(--meg-olive) !important;
+		font-family: 'Lato', Arial, sans-serif !important;
 		font-size: 15.5px;
 		line-height: 1.6;
 	}
@@ -31,11 +36,46 @@ updated: 2026-02-18 22:10:11 UTC
 	.markdown-body {
 		max-width: 960px;
 		margin: 0 auto;
-		padding: 0 2.5rem 6rem;
-		background: var(--meg-white);
+		padding: 0 0 4rem;
+		background: var(--meg-navy);
 		border: none;
 		border-radius: 0;
 		box-shadow: none;
+	}
+
+	/* ── Content wrapper (light card on dark navy page) ── */
+	.markdown-body > *:not(style):not(nav) {
+		background: var(--meg-fill);
+	}
+
+	/* Hero / page-title band at the top of content */
+	.markdown-body > em:first-of-type {
+		display: block;
+		background: var(--meg-navy);
+		margin: 0;
+		padding: 0.5rem 2.5rem 1rem;
+		color: var(--meg-cream) !important;
+		font-size: 0.8rem;
+		font-weight: 300;
+		font-style: normal;
+		text-align: right;
+		letter-spacing: 0.04em;
+	}
+
+	/* Main content wrapper – sits on the fill inside the navy page */
+	.markdown-body > h2,
+	.markdown-body > h3,
+	.markdown-body > p,
+	.markdown-body > ul,
+	.markdown-body > ol {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	/* Wrap all main body content after the nav in a light panel */
+	.meg-content {
+		background: var(--meg-fill);
+		padding: 2.5rem 2.5rem 5rem;
 	}
 
 	/* ── Typography ── */
@@ -43,39 +83,43 @@ updated: 2026-02-18 22:10:11 UTC
 	.markdown-body h2,
 	.markdown-body h3,
 	.markdown-body h4 {
-		font-family: 'Montserrat', Arial, sans-serif !important;
-		font-weight: 800;
-		color: var(--meg-charcoal);
+		font-family: 'Lato', Arial, sans-serif !important;
+		font-weight: 900;
+		color: var(--meg-navy);
 		letter-spacing: -0.01em;
 		line-height: 1.2;
 	}
 
 	.markdown-body h1 {
-		font-size: 3rem;
-		margin-top: 2.5rem;
+		font-size: 2.8rem;
+		margin-top: 0;
 		margin-bottom: 0.75rem;
+		color: var(--meg-cream);
+		padding: 2.5rem 2.5rem 1.5rem;
+		background: var(--meg-navy);
 	}
 
 	.markdown-body h2 {
-		font-size: 1.75rem;
+		font-size: 1.55rem;
 		font-weight: 700;
-		margin-top: 5rem;
-		margin-bottom: 1.5rem;
-		padding-bottom: 0.5rem;
-		border-bottom: 2px solid var(--meg-teal);
-		color: var(--meg-charcoal);
+		margin-top: 0;
+		margin-bottom: 1.25rem;
+		padding: 2rem 2.5rem 0.6rem;
+		border-bottom: 3px solid var(--meg-blue);
+		color: var(--meg-navy);
+		background: var(--meg-fill);
 	}
 
 	.markdown-body h3 {
-		font-size: 1.1rem;
+		font-size: 1.05rem;
 		font-weight: 700;
 		margin-top: 0;
-		color: var(--meg-charcoal);
+		color: var(--meg-navy);
 	}
 
 	.markdown-body p,
 	.markdown-body li {
-		color: #444444;
+		color: var(--meg-olive);
 	}
 
 	.markdown-body ul,
@@ -84,68 +128,81 @@ updated: 2026-02-18 22:10:11 UTC
 	}
 
 	.markdown-body strong {
-		color: var(--meg-charcoal);
+		color: var(--meg-navy);
 		font-weight: 700;
 	}
 
 	/* ── Links ── */
 	.markdown-body a {
-		color: var(--meg-teal);
+		color: var(--meg-blue);
 		text-decoration: none;
-		font-weight: 600;
+		font-weight: 700;
 	}
 
 	.markdown-body a:hover {
-		color: var(--meg-teal-dark);
+		color: var(--meg-blue-lt);
 		text-decoration: underline;
 	}
 
 	/* ── Opportunity cards ── */
 	.markdown-body h3 {
-		background: var(--meg-white);
-		border: 1px solid var(--meg-border);
-		border-bottom: none;
-		border-radius: 12px 12px 0 0;
-		box-shadow: var(--meg-shadow-sm);
-		padding: 1rem 1.4rem 0.5rem;
-		margin-bottom: 0;
+		background: var(--meg-navy);
+		color: var(--meg-cream) !important;
+		border: none;
+		border-radius: 10px 10px 0 0;
+		box-shadow: none;
+		padding: 0.9rem 1.4rem 0.7rem;
+		margin: 0 2.5rem 0;
+	}
+
+	.markdown-body h3 a {
+		color: var(--meg-blue-lt) !important;
+	}
+
+	.markdown-body h3 a:hover {
+		color: #ffffff !important;
 	}
 
 	.markdown-body h3 + ul {
-		background: var(--meg-gray-bg);
+		background: var(--meg-white);
 		border: 1px solid var(--meg-border);
 		border-top: none;
-		border-radius: 0 0 12px 12px;
-		box-shadow: var(--meg-shadow-sm);
-		padding: 1rem 1.5rem 1.25rem;
+		border-radius: 0 0 10px 10px;
+		box-shadow: var(--meg-shadow);
+		padding: 0.9rem 1.5rem 1.1rem;
 		list-style: none;
-		margin: 0 0 2rem;
+		margin: 0 2.5rem 2.5rem;
 	}
 
 	.markdown-body h3 + ul li {
-		color: #444444;
-		padding: 0.2rem 0;
-		font-size: 0.9rem;
+		color: var(--meg-olive);
+		padding: 0.22rem 0;
+		font-size: 0.88rem;
+		border-bottom: 1px solid var(--meg-border);
+	}
+
+	.markdown-body h3 + ul li:last-child {
+		border-bottom: none;
 	}
 
 	/* ── Metric / summary list rows ── */
 	.markdown-body h2 + ul,
 	.markdown-body h2 + p + ul {
-		background: var(--meg-gray-bg);
+		background: var(--meg-white);
 		border: 1px solid var(--meg-border);
-		border-radius: 10px;
-		padding: 1rem 1.5rem;
+		border-radius: 8px;
+		padding: 0.75rem 2.5rem;
 		list-style: none;
-		margin-bottom: 0.5rem;
-		box-shadow: var(--meg-shadow-sm);
+		margin: 0 0 0.5rem;
+		box-shadow: var(--meg-shadow);
 	}
 
 	.markdown-body h2 + ul li,
 	.markdown-body h2 + p + ul li {
-		padding: 0.25rem 0;
+		padding: 0.3rem 0;
 		border-bottom: 1px solid var(--meg-border);
-		font-size: 0.9rem;
-		color: #444444;
+		font-size: 0.88rem;
+		color: var(--meg-olive);
 	}
 
 	.markdown-body h2 + ul li:last-child,
@@ -153,17 +210,7 @@ updated: 2026-02-18 22:10:11 UTC
 		border-bottom: none;
 	}
 
-	/* ── Timestamp ── */
-	.markdown-body em:first-of-type {
-		display: inline-block;
-		margin: 1rem 0 0.25rem;
-		font-size: 0.82rem;
-		color: #888888;
-		font-weight: 500;
-		font-style: normal;
-	}
-
-	/* ── Sticky Navigation ── */
+	/* ── Sticky Navigation — dark navy matching MEG header ── */
 	nav[aria-label='MarketEdge Global'] {
 		position: sticky;
 		top: 0;
@@ -171,76 +218,83 @@ updated: 2026-02-18 22:10:11 UTC
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.15rem;
-		margin: 0 -2.5rem 1rem;
-		padding: 0.8rem 2.5rem;
-		background: var(--meg-white);
-		border-bottom: 1px solid var(--meg-border);
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+		gap: 0.2rem;
+		padding: 0.75rem 2.5rem;
+		background: var(--meg-navy);
+		border-bottom: 2px solid var(--meg-blue);
+		box-shadow: 0 4px 16px rgba(36, 35, 55, 0.45);
 	}
 
 	nav[aria-label='MarketEdge Global'] a {
-		color: var(--meg-charcoal) !important;
-		font-family: 'Montserrat', Arial, sans-serif;
+		color: var(--meg-cream) !important;
+		font-family: 'Lato', Arial, sans-serif;
 		font-size: 0.75rem;
-		font-weight: 600;
-		padding: 0.4rem 0.8rem;
+		font-weight: 700;
+		padding: 0.4rem 0.75rem;
 		border-radius: 4px;
 		background: transparent;
 		border: none;
 		text-transform: uppercase;
-		letter-spacing: 0.07em;
+		letter-spacing: 0.08em;
 		text-decoration: none;
 		transition: color 0.15s, background 0.15s;
 	}
 
 	nav[aria-label='MarketEdge Global'] a:hover {
-		color: var(--meg-teal) !important;
-		background: rgba(0, 163, 218, 0.08);
+		color: #ffffff !important;
+		background: rgba(0, 136, 203, 0.25);
 		text-decoration: none;
 	}
 
 	nav[aria-label='MarketEdge Global'] a:focus-visible {
-		outline: 2px solid var(--meg-teal);
+		outline: 2px solid var(--meg-blue);
 		outline-offset: 2px;
 	}
 
 	nav[aria-label='MarketEdge Global'] a.nav-cta {
-		background: var(--meg-teal);
+		background: var(--meg-blue);
 		color: #ffffff !important;
-		border-radius: 6px;
+		border-radius: 4px;
 		margin-left: auto;
-		padding: 0.42rem 1rem;
+		padding: 0.4rem 1.1rem;
 	}
 
 	nav[aria-label='MarketEdge Global'] a.nav-cta:hover {
-		background: var(--meg-teal-dark);
+		background: #006fa8;
 		color: #ffffff !important;
 	}
 
 	/* ── Responsive ── */
 	@media (max-width: 768px) {
-		.markdown-body {
-			padding: 0 1.25rem 3rem;
-		}
-
 		.markdown-body h1 {
 			font-size: 2.1rem;
+			padding: 2rem 1.25rem 1.25rem;
 		}
 
 		.markdown-body h2 {
-			font-size: 1.35rem;
-			margin-top: 3rem;
+			font-size: 1.25rem;
+			padding: 1.5rem 1.25rem 0.5rem;
+		}
+
+		.markdown-body h3,
+		.markdown-body h3 + ul {
+			margin-left: 1.25rem;
+			margin-right: 1.25rem;
+		}
+
+		.markdown-body h2 + ul,
+		.markdown-body h2 + p + ul {
+			padding-left: 1.25rem;
+			padding-right: 1.25rem;
 		}
 
 		nav[aria-label='MarketEdge Global'] {
-			margin: 0 -1.25rem 1rem;
-			padding: 0.65rem 1.25rem;
+			padding: 0.6rem 1rem;
 		}
 
 		nav[aria-label='MarketEdge Global'] a {
-			font-size: 0.7rem;
-			padding: 0.35rem 0.6rem;
+			font-size: 0.68rem;
+			padding: 0.35rem 0.55rem;
 		}
 
 		nav[aria-label='MarketEdge Global'] a.nav-cta {

@@ -1101,28 +1101,37 @@ def sanitize_summary(summary: Optional[str]) -> str:
 
 # ---------------------------------------------------------------------------
 # HTML/CSS header injected at the top of every generated docs/index.md page.
-# Matches the MarketEdge Global brand identity (marketedgeglobal.com).
+# Palette sourced directly from marketedgeglobal.com:
+#   #242337 dark navy (hero/nav bg)  |  #393D32 olive text
+#   #F1E3C8 cream (text on dark)     |  #F1F3EE light section fill
+#   #0088CB process blue (link/btn)  |  #7FCCF7 light-blue hover
 # ---------------------------------------------------------------------------
 _PAGE_STYLE_BLOCK = """\
 <style>
-\t@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+\t@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
 \t:root {
-\t\t--meg-white: #ffffff;
-\t\t--meg-charcoal: #1a1a1a;
-\t\t--meg-teal: #00a3da;
-\t\t--meg-teal-dark: #0085b2;
-\t\t--meg-gray-bg: #f4f4f4;
-\t\t--meg-border: #e5e7eb;
-\t\t--meg-shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
-\t\t--meg-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+\t\t--meg-navy:    #242337;
+\t\t--meg-olive:   #393d32;
+\t\t--meg-cream:   #f1e3c8;
+\t\t--meg-fill:    #f1f3ee;
+\t\t--meg-white:   #ffffff;
+\t\t--meg-blue:    #0088cb;
+\t\t--meg-blue-lt: #7fccf7;
+\t\t--meg-border:  #e2e2e2;
+\t\t--meg-muted:   #8f8f8f;
+\t\t--meg-shadow:  0 4px 12px rgba(36, 35, 55, 0.12);
+\t}
+
+\thtml {
+\t\tbackground: var(--meg-navy);
 \t}
 
 \tbody,
 \t.markdown-body {
-\t\tbackground: var(--meg-white) !important;
-\t\tcolor: var(--meg-charcoal) !important;
-\t\tfont-family: 'Montserrat', Arial, sans-serif !important;
+\t\tbackground: var(--meg-navy) !important;
+\t\tcolor: var(--meg-olive) !important;
+\t\tfont-family: 'Lato', Arial, sans-serif !important;
 \t\tfont-size: 15.5px;
 \t\tline-height: 1.6;
 \t}
@@ -1130,8 +1139,8 @@ _PAGE_STYLE_BLOCK = """\
 \t.markdown-body {
 \t\tmax-width: 960px;
 \t\tmargin: 0 auto;
-\t\tpadding: 0 2.5rem 6rem;
-\t\tbackground: var(--meg-white);
+\t\tpadding: 0 0 4rem;
+\t\tbackground: var(--meg-navy);
 \t\tborder: none;
 \t\tborder-radius: 0;
 \t\tbox-shadow: none;
@@ -1141,39 +1150,43 @@ _PAGE_STYLE_BLOCK = """\
 \t.markdown-body h2,
 \t.markdown-body h3,
 \t.markdown-body h4 {
-\t\tfont-family: 'Montserrat', Arial, sans-serif !important;
-\t\tfont-weight: 800;
-\t\tcolor: var(--meg-charcoal);
+\t\tfont-family: 'Lato', Arial, sans-serif !important;
+\t\tfont-weight: 900;
+\t\tcolor: var(--meg-navy);
 \t\tletter-spacing: -0.01em;
 \t\tline-height: 1.2;
 \t}
 
 \t.markdown-body h1 {
-\t\tfont-size: 3rem;
-\t\tmargin-top: 2.5rem;
+\t\tfont-size: 2.8rem;
+\t\tmargin-top: 0;
 \t\tmargin-bottom: 0.75rem;
+\t\tcolor: var(--meg-cream);
+\t\tpadding: 2.5rem 2.5rem 1.5rem;
+\t\tbackground: var(--meg-navy);
 \t}
 
 \t.markdown-body h2 {
-\t\tfont-size: 1.75rem;
+\t\tfont-size: 1.55rem;
 \t\tfont-weight: 700;
-\t\tmargin-top: 5rem;
-\t\tmargin-bottom: 1.5rem;
-\t\tpadding-bottom: 0.5rem;
-\t\tborder-bottom: 2px solid var(--meg-teal);
-\t\tcolor: var(--meg-charcoal);
+\t\tmargin-top: 0;
+\t\tmargin-bottom: 1.25rem;
+\t\tpadding: 2rem 2.5rem 0.6rem;
+\t\tborder-bottom: 3px solid var(--meg-blue);
+\t\tcolor: var(--meg-navy);
+\t\tbackground: var(--meg-fill);
 \t}
 
 \t.markdown-body h3 {
-\t\tfont-size: 1.1rem;
+\t\tfont-size: 1.05rem;
 \t\tfont-weight: 700;
 \t\tmargin-top: 0;
-\t\tcolor: var(--meg-charcoal);
+\t\tcolor: var(--meg-navy);
 \t}
 
 \t.markdown-body p,
 \t.markdown-body li {
-\t\tcolor: #444444;
+\t\tcolor: var(--meg-olive);
 \t}
 
 \t.markdown-body ul,
@@ -1182,79 +1195,96 @@ _PAGE_STYLE_BLOCK = """\
 \t}
 
 \t.markdown-body strong {
-\t\tcolor: var(--meg-charcoal);
+\t\tcolor: var(--meg-navy);
 \t\tfont-weight: 700;
 \t}
 
 \t.markdown-body a {
-\t\tcolor: var(--meg-teal);
+\t\tcolor: var(--meg-blue);
 \t\ttext-decoration: none;
-\t\tfont-weight: 600;
+\t\tfont-weight: 700;
 \t}
 
 \t.markdown-body a:hover {
-\t\tcolor: var(--meg-teal-dark);
+\t\tcolor: var(--meg-blue-lt);
 \t\ttext-decoration: underline;
 \t}
 
+\t.markdown-body em:first-of-type {
+\t\tdisplay: block;
+\t\tbackground: var(--meg-navy);
+\t\tmargin: 0;
+\t\tpadding: 0.5rem 2.5rem 1rem;
+\t\tcolor: var(--meg-cream) !important;
+\t\tfont-size: 0.8rem;
+\t\tfont-weight: 300;
+\t\tfont-style: normal;
+\t\ttext-align: right;
+\t\tletter-spacing: 0.04em;
+\t}
+
 \t.markdown-body h3 {
-\t\tbackground: var(--meg-white);
-\t\tborder: 1px solid var(--meg-border);
-\t\tborder-bottom: none;
-\t\tborder-radius: 12px 12px 0 0;
-\t\tbox-shadow: var(--meg-shadow-sm);
-\t\tpadding: 1rem 1.4rem 0.5rem;
-\t\tmargin-bottom: 0;
+\t\tbackground: var(--meg-navy);
+\t\tcolor: var(--meg-cream) !important;
+\t\tborder: none;
+\t\tborder-radius: 10px 10px 0 0;
+\t\tbox-shadow: none;
+\t\tpadding: 0.9rem 1.4rem 0.7rem;
+\t\tmargin: 0 2.5rem 0;
+\t}
+
+\t.markdown-body h3 a {
+\t\tcolor: var(--meg-blue-lt) !important;
+\t}
+
+\t.markdown-body h3 a:hover {
+\t\tcolor: #ffffff !important;
 \t}
 
 \t.markdown-body h3 + ul {
-\t\tbackground: var(--meg-gray-bg);
+\t\tbackground: var(--meg-white);
 \t\tborder: 1px solid var(--meg-border);
 \t\tborder-top: none;
-\t\tborder-radius: 0 0 12px 12px;
-\t\tbox-shadow: var(--meg-shadow-sm);
-\t\tpadding: 1rem 1.5rem 1.25rem;
+\t\tborder-radius: 0 0 10px 10px;
+\t\tbox-shadow: var(--meg-shadow);
+\t\tpadding: 0.9rem 1.5rem 1.1rem;
 \t\tlist-style: none;
-\t\tmargin: 0 0 2rem;
+\t\tmargin: 0 2.5rem 2.5rem;
 \t}
 
 \t.markdown-body h3 + ul li {
-\t\tcolor: #444444;
-\t\tpadding: 0.2rem 0;
-\t\tfont-size: 0.9rem;
+\t\tcolor: var(--meg-olive);
+\t\tpadding: 0.22rem 0;
+\t\tfont-size: 0.88rem;
+\t\tborder-bottom: 1px solid var(--meg-border);
+\t}
+
+\t.markdown-body h3 + ul li:last-child {
+\t\tborder-bottom: none;
 \t}
 
 \t.markdown-body h2 + ul,
 \t.markdown-body h2 + p + ul {
-\t\tbackground: var(--meg-gray-bg);
+\t\tbackground: var(--meg-white);
 \t\tborder: 1px solid var(--meg-border);
-\t\tborder-radius: 10px;
-\t\tpadding: 1rem 1.5rem;
+\t\tborder-radius: 8px;
+\t\tpadding: 0.75rem 2.5rem;
 \t\tlist-style: none;
-\t\tmargin-bottom: 0.5rem;
-\t\tbox-shadow: var(--meg-shadow-sm);
+\t\tmargin: 0 0 0.5rem;
+\t\tbox-shadow: var(--meg-shadow);
 \t}
 
 \t.markdown-body h2 + ul li,
 \t.markdown-body h2 + p + ul li {
-\t\tpadding: 0.25rem 0;
+\t\tpadding: 0.3rem 0;
 \t\tborder-bottom: 1px solid var(--meg-border);
-\t\tfont-size: 0.9rem;
-\t\tcolor: #444444;
+\t\tfont-size: 0.88rem;
+\t\tcolor: var(--meg-olive);
 \t}
 
 \t.markdown-body h2 + ul li:last-child,
 \t.markdown-body h2 + p + ul li:last-child {
 \t\tborder-bottom: none;
-\t}
-
-\t.markdown-body em:first-of-type {
-\t\tdisplay: inline-block;
-\t\tmargin: 1rem 0 0.25rem;
-\t\tfont-size: 0.82rem;
-\t\tcolor: #888888;
-\t\tfont-weight: 500;
-\t\tfont-style: normal;
 \t}
 
 \tnav[aria-label='MarketEdge Global'] {
@@ -1264,75 +1294,82 @@ _PAGE_STYLE_BLOCK = """\
 \t\tdisplay: flex;
 \t\tflex-wrap: wrap;
 \t\talign-items: center;
-\t\tgap: 0.15rem;
-\t\tmargin: 0 -2.5rem 1rem;
-\t\tpadding: 0.8rem 2.5rem;
-\t\tbackground: var(--meg-white);
-\t\tborder-bottom: 1px solid var(--meg-border);
-\t\tbox-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+\t\tgap: 0.2rem;
+\t\tpadding: 0.75rem 2.5rem;
+\t\tbackground: var(--meg-navy);
+\t\tborder-bottom: 2px solid var(--meg-blue);
+\t\tbox-shadow: 0 4px 16px rgba(36, 35, 55, 0.45);
 \t}
 
 \tnav[aria-label='MarketEdge Global'] a {
-\t\tcolor: var(--meg-charcoal) !important;
-\t\tfont-family: 'Montserrat', Arial, sans-serif;
+\t\tcolor: var(--meg-cream) !important;
+\t\tfont-family: 'Lato', Arial, sans-serif;
 \t\tfont-size: 0.75rem;
-\t\tfont-weight: 600;
-\t\tpadding: 0.4rem 0.8rem;
+\t\tfont-weight: 700;
+\t\tpadding: 0.4rem 0.75rem;
 \t\tborder-radius: 4px;
 \t\tbackground: transparent;
 \t\tborder: none;
 \t\ttext-transform: uppercase;
-\t\tletter-spacing: 0.07em;
+\t\tletter-spacing: 0.08em;
 \t\ttext-decoration: none;
 \t\ttransition: color 0.15s, background 0.15s;
 \t}
 
 \tnav[aria-label='MarketEdge Global'] a:hover {
-\t\tcolor: var(--meg-teal) !important;
-\t\tbackground: rgba(0, 163, 218, 0.08);
+\t\tcolor: #ffffff !important;
+\t\tbackground: rgba(0, 136, 203, 0.25);
 \t\ttext-decoration: none;
 \t}
 
 \tnav[aria-label='MarketEdge Global'] a:focus-visible {
-\t\toutline: 2px solid var(--meg-teal);
+\t\toutline: 2px solid var(--meg-blue);
 \t\toutline-offset: 2px;
 \t}
 
 \tnav[aria-label='MarketEdge Global'] a.nav-cta {
-\t\tbackground: var(--meg-teal);
+\t\tbackground: var(--meg-blue);
 \t\tcolor: #ffffff !important;
-\t\tborder-radius: 6px;
+\t\tborder-radius: 4px;
 \t\tmargin-left: auto;
-\t\tpadding: 0.42rem 1rem;
+\t\tpadding: 0.4rem 1.1rem;
 \t}
 
 \tnav[aria-label='MarketEdge Global'] a.nav-cta:hover {
-\t\tbackground: var(--meg-teal-dark);
+\t\tbackground: #006fa8;
 \t\tcolor: #ffffff !important;
 \t}
 
 \t@media (max-width: 768px) {
-\t\t.markdown-body {
-\t\t\tpadding: 0 1.25rem 3rem;
-\t\t}
-
 \t\t.markdown-body h1 {
 \t\t\tfont-size: 2.1rem;
+\t\t\tpadding: 2rem 1.25rem 1.25rem;
 \t\t}
 
 \t\t.markdown-body h2 {
-\t\t\tfont-size: 1.35rem;
-\t\t\tmargin-top: 3rem;
+\t\t\tfont-size: 1.25rem;
+\t\t\tpadding: 1.5rem 1.25rem 0.5rem;
+\t\t}
+
+\t\t.markdown-body h3,
+\t\t.markdown-body h3 + ul {
+\t\t\tmargin-left: 1.25rem;
+\t\t\tmargin-right: 1.25rem;
+\t\t}
+
+\t\t.markdown-body h2 + ul,
+\t\t.markdown-body h2 + p + ul {
+\t\t\tpadding-left: 1.25rem;
+\t\t\tpadding-right: 1.25rem;
 \t\t}
 
 \t\tnav[aria-label='MarketEdge Global'] {
-\t\t\tmargin: 0 -1.25rem 1rem;
-\t\t\tpadding: 0.65rem 1.25rem;
+\t\t\tpadding: 0.6rem 1rem;
 \t\t}
 
 \t\tnav[aria-label='MarketEdge Global'] a {
-\t\t\tfont-size: 0.7rem;
-\t\t\tpadding: 0.35rem 0.6rem;
+\t\t\tfont-size: 0.68rem;
+\t\t\tpadding: 0.35rem 0.55rem;
 \t\t}
 
 \t\tnav[aria-label='MarketEdge Global'] a.nav-cta {
