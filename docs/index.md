@@ -5,6 +5,16 @@ updated: 2026-02-18 22:10:11 UTC
 
 *Last updated: 2026-02-18 22:10:11 UTC*
 
+<nav aria-label="MarketEdge Global">
+	<a href="https://www.marketedgeglobal.com/">Home</a> |
+	<a href="https://www.marketedgeglobal.com/services-3">What We Offer</a> |
+	<a href="https://www.marketedgeglobal.com/sealeaders">Programs</a> |
+	<a href="https://www.marketedgeglobal.com/partnerai">PartnerAI</a> |
+	<a href="https://www.marketedgeglobal.com/partners">Our Work</a> |
+	<a href="https://www.marketedgeglobal.com/team">About Us</a> |
+	<a href="https://www.marketedgeglobal.com/contact-7">Contact</a>
+</nav>
+
 ## Executive Summary
 
 - **Total scanned:** 136
