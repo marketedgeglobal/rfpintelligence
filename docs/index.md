@@ -4,147 +4,247 @@ updated: 2026-02-18 22:10:11 UTC
 ---
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Roboto:wght@400;500;700&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 	:root {
-		--meg-bg: #eef2f6;
-		--meg-surface: #ffffff;
-		--meg-text: #1e293b;
-		--meg-muted: #475569;
-		--meg-accent: #0b4a78;
-		--meg-accent-dark: #083657;
-		--meg-border: #d5dde6;
-		--meg-nav-bg: #0f172a;
-		--meg-nav-pill: #1e293b;
+		--meg-white: #ffffff;
+		--meg-charcoal: #1a1a1a;
+		--meg-teal: #00a3da;
+		--meg-teal-dark: #0085b2;
+		--meg-gray-bg: #f4f4f4;
+		--meg-gray-text: #555555;
+		--meg-border: #e5e7eb;
+		--meg-shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+		--meg-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
 	}
 
+	/* ── Base ── */
 	body,
 	.markdown-body {
-		background: var(--meg-bg) !important;
-		color: var(--meg-text) !important;
-		font-family: 'Roboto', Arial, sans-serif !important;
+		background: var(--meg-white) !important;
+		color: var(--meg-charcoal) !important;
+		font-family: 'Montserrat', Arial, sans-serif !important;
 		font-size: 15.5px;
-		line-height: 1.72;
+		line-height: 1.6;
 	}
 
 	.markdown-body {
-		max-width: 1080px;
-		margin: 1.5rem auto 2rem;
-		padding: 2.1rem 2.6rem;
-		background: var(--meg-surface);
-		border: 1px solid var(--meg-border);
-		border-radius: 16px;
-		box-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 0 2.5rem 6rem;
+		background: var(--meg-white);
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
 	}
 
+	/* ── Typography ── */
 	.markdown-body h1,
 	.markdown-body h2,
 	.markdown-body h3,
 	.markdown-body h4 {
-		font-family: 'Fraunces', Georgia, serif !important;
-		color: #0f172a;
-		letter-spacing: 0.008em;
-		line-height: 1.25;
+		font-family: 'Montserrat', Arial, sans-serif !important;
+		font-weight: 800;
+		color: var(--meg-charcoal);
+		letter-spacing: -0.01em;
+		line-height: 1.2;
 	}
 
 	.markdown-body h1 {
-		font-size: 2.45rem;
-		margin-top: 0.2rem;
-		margin-bottom: 1rem;
+		font-size: 3rem;
+		margin-top: 2.5rem;
+		margin-bottom: 0.75rem;
 	}
 
 	.markdown-body h2 {
-		font-size: 1.8rem;
-		margin-top: 2.1rem;
-		border-bottom: 1px solid var(--meg-border);
-		padding-bottom: 0.45rem;
+		font-size: 1.75rem;
+		font-weight: 700;
+		margin-top: 5rem;
+		margin-bottom: 1.5rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 2px solid var(--meg-teal);
+		color: var(--meg-charcoal);
 	}
 
 	.markdown-body h3 {
-		font-size: 1.24rem;
-		margin-top: 1.5rem;
+		font-size: 1.1rem;
+		font-weight: 700;
+		margin-top: 0;
+		color: var(--meg-charcoal);
 	}
 
 	.markdown-body p,
 	.markdown-body li {
-		color: var(--meg-muted);
+		color: #444444;
 	}
 
 	.markdown-body ul,
 	.markdown-body ol {
-		padding-left: 1.3rem;
+		padding-left: 1.4rem;
 	}
 
 	.markdown-body strong {
-		color: var(--meg-text);
+		color: var(--meg-charcoal);
+		font-weight: 700;
 	}
 
+	/* ── Links ── */
 	.markdown-body a {
-		color: var(--meg-accent);
+		color: var(--meg-teal);
 		text-decoration: none;
 		font-weight: 600;
-		text-underline-offset: 2px;
 	}
 
 	.markdown-body a:hover {
-		color: var(--meg-accent-dark);
+		color: var(--meg-teal-dark);
 		text-decoration: underline;
 	}
 
+	/* ── Opportunity cards ── */
+	.markdown-body h3 {
+		background: var(--meg-white);
+		border: 1px solid var(--meg-border);
+		border-bottom: none;
+		border-radius: 12px 12px 0 0;
+		box-shadow: var(--meg-shadow-sm);
+		padding: 1rem 1.4rem 0.5rem;
+		margin-bottom: 0;
+	}
+
+	.markdown-body h3 + ul {
+		background: var(--meg-gray-bg);
+		border: 1px solid var(--meg-border);
+		border-top: none;
+		border-radius: 0 0 12px 12px;
+		box-shadow: var(--meg-shadow-sm);
+		padding: 1rem 1.5rem 1.25rem;
+		list-style: none;
+		margin: 0 0 2rem;
+	}
+
+	.markdown-body h3 + ul li {
+		color: #444444;
+		padding: 0.2rem 0;
+		font-size: 0.9rem;
+	}
+
+	/* ── Metric / summary list rows ── */
+	.markdown-body h2 + ul,
+	.markdown-body h2 + p + ul {
+		background: var(--meg-gray-bg);
+		border: 1px solid var(--meg-border);
+		border-radius: 10px;
+		padding: 1rem 1.5rem;
+		list-style: none;
+		margin-bottom: 0.5rem;
+		box-shadow: var(--meg-shadow-sm);
+	}
+
+	.markdown-body h2 + ul li,
+	.markdown-body h2 + p + ul li {
+		padding: 0.25rem 0;
+		border-bottom: 1px solid var(--meg-border);
+		font-size: 0.9rem;
+		color: #444444;
+	}
+
+	.markdown-body h2 + ul li:last-child,
+	.markdown-body h2 + p + ul li:last-child {
+		border-bottom: none;
+	}
+
+	/* ── Timestamp ── */
+	.markdown-body em:first-of-type {
+		display: inline-block;
+		margin: 1rem 0 0.25rem;
+		font-size: 0.82rem;
+		color: #888888;
+		font-weight: 500;
+		font-style: normal;
+	}
+
+	/* ── Sticky Navigation ── */
 	nav[aria-label='MarketEdge Global'] {
-		margin: 0.8rem 0 1.6rem;
-		padding: 0.7rem;
-		background: var(--meg-nav-bg);
-		border-radius: 12px;
+		position: sticky;
+		top: 0;
+		z-index: 200;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
-		gap: 0.45rem;
+		align-items: center;
+		gap: 0.15rem;
+		margin: 0 -2.5rem 1rem;
+		padding: 0.8rem 2.5rem;
+		background: var(--meg-white);
+		border-bottom: 1px solid var(--meg-border);
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 	}
 
 	nav[aria-label='MarketEdge Global'] a {
-		color: #f8fafc !important;
-		font-size: 0.82rem;
+		color: var(--meg-charcoal) !important;
+		font-family: 'Montserrat', Arial, sans-serif;
+		font-size: 0.75rem;
 		font-weight: 600;
-		padding: 0.42rem 0.72rem;
-		border-radius: 999px;
-		background: var(--meg-nav-pill);
-		border: 1px solid rgba(148, 163, 184, 0.22);
+		padding: 0.4rem 0.8rem;
+		border-radius: 4px;
+		background: transparent;
+		border: none;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.07em;
+		text-decoration: none;
+		transition: color 0.15s, background 0.15s;
 	}
 
 	nav[aria-label='MarketEdge Global'] a:hover {
-		color: #dbeafe !important;
-		background: #253248;
+		color: var(--meg-teal) !important;
+		background: rgba(0, 163, 218, 0.08);
 		text-decoration: none;
 	}
 
 	nav[aria-label='MarketEdge Global'] a:focus-visible {
-		outline: 2px solid #93c5fd;
+		outline: 2px solid var(--meg-teal);
 		outline-offset: 2px;
 	}
 
-	.markdown-body em:first-of-type {
-		display: inline-block;
-		margin-bottom: 0.75rem;
-		font-size: 0.95rem;
-		color: #64748b;
+	nav[aria-label='MarketEdge Global'] a.nav-cta {
+		background: var(--meg-teal);
+		color: #ffffff !important;
+		border-radius: 6px;
+		margin-left: auto;
+		padding: 0.42rem 1rem;
 	}
 
+	nav[aria-label='MarketEdge Global'] a.nav-cta:hover {
+		background: var(--meg-teal-dark);
+		color: #ffffff !important;
+	}
+
+	/* ── Responsive ── */
 	@media (max-width: 768px) {
 		.markdown-body {
-			margin: 0.5rem;
-			padding: 1.2rem;
-			border-radius: 10px;
+			padding: 0 1.25rem 3rem;
+		}
+
+		.markdown-body h1 {
+			font-size: 2.1rem;
 		}
 
 		.markdown-body h2 {
-			font-size: 1.5rem;
+			font-size: 1.35rem;
+			margin-top: 3rem;
 		}
 
 		nav[aria-label='MarketEdge Global'] {
-			justify-content: flex-start;
+			margin: 0 -1.25rem 1rem;
+			padding: 0.65rem 1.25rem;
+		}
+
+		nav[aria-label='MarketEdge Global'] a {
+			font-size: 0.7rem;
+			padding: 0.35rem 0.6rem;
+		}
+
+		nav[aria-label='MarketEdge Global'] a.nav-cta {
+			margin-left: 0;
 		}
 	}
 </style>
@@ -158,7 +258,7 @@ updated: 2026-02-18 22:10:11 UTC
 	<a href="https://www.marketedgeglobal.com/partnerai">PartnerAI</a>
 	<a href="https://www.marketedgeglobal.com/partners">Our Work</a>
 	<a href="https://www.marketedgeglobal.com/team">About Us</a>
-	<a href="https://www.marketedgeglobal.com/contact-7">Contact</a>
+	<a class="nav-cta" href="https://www.marketedgeglobal.com/contact-7">Contact</a>
 </nav>
 
 ## Executive Summary

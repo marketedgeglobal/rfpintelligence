@@ -31,10 +31,17 @@ jobs:
 
       - name: Verify live page analysis block
         run: |
-          grep -Fq '# RFP Intelligence Analysis' docs/index.md
-          grep -Fq '## Pipeline Metrics' docs/index.md
-          grep -Fq '## Scoring Summary' docs/index.md
-          grep -Fq '## Run Metadata' docs/index.md
+          # --- content sections ---
+          grep -Fq 'title: RFP Intelligence Analysis' docs/index.md
+          grep -Fq '## Pipeline Metrics'              docs/index.md
+          grep -Fq '## Scoring Summary'               docs/index.md
+          grep -Fq '## Run Metadata'                  docs/index.md
+
+          # --- brand styles & navigation must be present ---
+          grep -Fq 'Montserrat'                       docs/index.md   || { echo "ERROR: Montserrat font missing – style block was not written"; exit 1; }
+          grep -Fq '--meg-teal'                       docs/index.md   || { echo "ERROR: teal colour tokens missing – style block was not written"; exit 1; }
+          grep -Fq 'MarketEdge Global'                docs/index.md   || { echo "ERROR: navigation block missing"; exit 1; }
+          grep -Fq 'nav-cta'                          docs/index.md   || { echo "ERROR: nav CTA button missing"; exit 1; }
 
       - name: Commit and push changes
         run: |
