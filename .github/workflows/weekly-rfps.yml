@@ -39,8 +39,8 @@ jobs:
 
           # --- brand styles & navigation must be present ---
           grep -Fq 'Lato'                             docs/index.md   || { echo "ERROR: Lato font missing – style block was not written"; exit 1; }
-          grep -Fq '--meg-navy'                       docs/index.md   || { echo "ERROR: navy colour token missing – style block was not written"; exit 1; }
-          grep -Fq '--meg-blue'                       docs/index.md   || { echo "ERROR: blue colour token missing – style block was not written"; exit 1; }
+          grep -Fq -- '--meg-navy'                    docs/index.md   || { echo "ERROR: navy colour token missing – style block was not written"; exit 1; }
+          grep -Fq -- '--meg-blue'                    docs/index.md   || { echo "ERROR: blue colour token missing – style block was not written"; exit 1; }
           grep -Fq 'MarketEdge Global'                docs/index.md   || { echo "ERROR: navigation block missing"; exit 1; }
           grep -Fq 'nav-cta'                          docs/index.md   || { echo "ERROR: nav CTA button missing"; exit 1; }
 
