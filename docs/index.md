@@ -303,8 +303,6 @@ updated: 2026-02-18 22:10:11 UTC
 	}
 </style>
 
-*Last updated: 2026-02-18 22:10:11 UTC*
-
 <nav aria-label="MarketEdge Global">
 	<a href="https://www.marketedgeglobal.com/">Home</a>
 	<a href="https://www.marketedgeglobal.com/services-3">What We Offer</a>
@@ -380,3 +378,5 @@ updated: 2026-02-18 22:10:11 UTC
 - **Output file:** `docs/index.md`
 - **Metadata file:** `data/last_run.json`
 - **Timezone:** UTC
+
+*Last updated: 2026-02-18 22:10:11 UTC*
