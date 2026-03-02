@@ -1,6 +1,6 @@
 ---
 title: RFP Intelligence Analysis
-updated: 2026-02-23 10:02:18 UTC
+updated: 2026-03-02 09:58:19 UTC
 ---
 
 <style>
@@ -274,7 +274,7 @@ updated: 2026-02-23 10:02:18 UTC
 	}
 </style>
 
-*Last updated: 2026-02-23 10:02:18 UTC*
+*Last updated: 2026-03-02 09:58:19 UTC*
 
 <nav aria-label="MarketEdge Global">
 	<a href="https://www.marketedgeglobal.com/">Home</a>
@@ -289,39 +289,39 @@ updated: 2026-02-23 10:02:18 UTC
 ## Executive Summary
 
 - **Total scanned:** 136
-- **Qualifying opportunities:** 10
-- **Priority split:** High 0, Medium 8, Low 2
-- **Top sources:** ReliefWeb - Updates (5), United Nations Global Marketplace (4), UN News - Global perspective Human stories (1)
+- **Qualifying opportunities:** 16
+- **Priority split:** High 2, Medium 7, Low 7
+- **Top sources:** ReliefWeb - Updates (7), UN News - Global perspective Human stories (5), United Nations Global Marketplace (2)
 
 ## Pipeline Metrics
 
 - **Fetched:** 136
-- **After filtering:** 10
-- **After deduplication:** 10
-- **Selected top results:** 10
-- **Dropped by age:** 53
+- **After filtering:** 16
+- **After deduplication:** 16
+- **Selected top results:** 16
+- **Dropped by age:** 50
 - **Dropped by invalid date:** 0
-- **Dropped by region:** 73
-- **Region matched (annotated):** 10
-- **Region unmatched (kept):** 73
+- **Dropped by region:** 70
+- **Region matched (annotated):** 16
+- **Region unmatched (kept):** 70
 
 ## Scoring Summary
 
-- **Entries scored:** 10
-- **Average score:** 0.384
-- **Highest score:** 0.435
-- **Lowest score:** 0.227
+- **Entries scored:** 16
+- **Average score:** 0.441
+- **Highest score:** 0.841
+- **Lowest score:** 0.327
 
 ## Priority Bands
 
 - **High Priority (score ≥ 0.600):** Best-fit opportunities
 - **Medium Priority (0.400–0.599):** Relevant but needs review
 - **Low Priority (score < 0.400):** Monitor only
-- **Current distribution:** High 0, Medium 8, Low 2
+- **Current distribution:** High 2, Medium 7, Low 7
 
 ## Region Coverage
 
-- **Matched region groups:** EAP (2), LAC (2), MENAP (7), SAR (6)
+- **Matched region groups:** EAP (3), LAC (2), MENAP (6), SAR (11)
 
 ## Filtering Notes
 
@@ -330,85 +330,133 @@ updated: 2026-02-23 10:02:18 UTC
 
 ## Top Opportunities
 
-### 1. [oPt: QRCS provides Ramadan Iftar, promotes food security for vulnerable families [EN/AR]](https://reliefweb.int/report/occupied-palestinian-territory/qrcs-provides-ramadan-iftar-promotes-food-security-vulnerable-families-enar)
-- **Score:** 0.435 (Medium)
-- **Published:** 2026-02-23
+### 1. [Argentina: UNICEF Latin America and the Caribbean Region Humanitarian Situation Report No. 2 (End of Year), 31 December 2025](https://reliefweb.int/report/argentina/unicef-latin-america-and-caribbean-region-humanitarian-situation-report-no-2-end-year-31-december-2025)
+- **Score:** 0.841 (High)
+- **Published:** 2026-03-02
 - **Source:** ReliefWeb - Updates
-- **Budget:** Not detected
-- **Matched Regions:** LAC, MENAP, SAR
-- **Summary:** Country: occupied Palestinian territory Source: Qatar Red Crescent Society Please refer to the attached files. February 21st, 2026 ― Doha, Qatar: As part of its “Keep Your Balance of Good Deeds Alive” Ramadan Campaign 2026/1447 AH, Qatar Red Crescent Society (QRCS) has initiated the Ramadan Iftar projects, through its foreign representation offices/missions and in collaboration with sister National Societies and partners in the target countries. Under these projects, diverse one-month food parcels will be distributed to more than 300,000 beneficiaries in 17 countries: Palestine (Gaza and the West Bank), Sudan, Syria, Somalia, Chad, Afghanistan, Tanzania, Djibouti, Yemen, Niger, Bangladesh, Lebanon, Jordan, Mauritania, Albania, Kazakhstan, and Uganda. In Qatar, QRCS’s community care and development teams are implementing several Ramadan projects/initiatives, including Ramadan Iftar, Zakat Al-Mal, Stand Together, Joy of Eid, On-the-Go Iftar, and Hero Meals. Overall, these projects/initiatives will reach out to no less than 30,000 people, including expatriate workers, vulnerable families, talabat riders, and the general public. In a statement, Mohamed Bader Al-Sada, Assistant Secretary-General for Relief and International Development at QRCS, explained the importance of food security projects: “For literally everyone, having something to eat is a critical issue, so we do our best to find a job and earn a living for ourselves and our families. In the context of crises and disasters, safe people lose their livelihoods and, by extension, nutrition, finding themselves in a life-or-death situation. That is why QRCS pays great attention to enhancing food security as a key relief intervention to alleviate the impact of crises or disasters on the victims, help them remain strong, and preserve their dignity from hunger and helplessness”. Apart from Ramadan Iftar projects during Ramadan 1447 AH, Mr. Al-Sada said, QRCS is planning to implement 15 year-round food security projects, at a total cost of QR 49,615,560, for the benefit of 781,236 people in 10 countries: Syria, Yemen, Palestine (Gaza and the West Bank), Somalia, Niger, Bangladesh, Jordan, Afghanistan, Sudan, and Lebanon. These projects include the provision of food parcels and hot meals, flour for bakeries to produce daily bread for families, therapeutic food items for malnourished children, and food for orphanages and nursing homes. Back in 2025, QRCS implemented a total of 70 food security projects, at a total cost of QR 59,874,044, for the benefit of 2,839,511 people in 17 countries: Bangladesh, Jordan, Palestine (Gaza and the West Bank), Syria, Uganda, Chad, Lebanon, Tanzania, Somalia, Sudan, Yemen, Niger, Djibouti, Tajikistan, Gambia, Mauritania, and Afghanistan. To maximize the vital impact of food security projects on the lives and health of beneficiaries, QRCS welcomes donations via its website ( https://qrcs.qa/cc ), mobile app ( https://qrcs.qa/apps ), donor service (66666364), home donation collection (33998898), or bank transfer as follows: QNB (IBAN: QA21QNBA000000000850020196062), QIIB (IBAN: QA66QIIB000000001111126666003), Al Rayan Bank (IBAN: QA18MAFR000000000011199980003), Dukhan Bank (IBAN: QA37BRWA000000000200000094340), or QIB (IBAN: QA51QISB000000000110575190014). ##End of Text## About Qatar Red Crescent Society (QRCS) Established in 1978, Qatar Red Crescent Society (QRCS) is Qatar’s first humanitarian and volunteering organization that aims to assist and empower vulnerable individuals and communities without partiality or discrimination. QRCS is a member of the International Red Cross and Red Crescent Movement, which consists of the International Federation of Red Cross and Red Crescent Societies (IFRC), the International Committee of the Red Cross (ICRC), and 191 National Societies. It is also a member of several GCC, Arab, and Islamic organizations, such as the Islamic Committee of International Crescent (ICIC) and the Arab Red Crescent and Red Cross Organization (ARCO). In this legally recognized capacity, QRCS has access to disaster and conflict zones, thus serving as an auxiliary to the State of Qatar in its humanitarian and social efforts — a role that distinguishes it from other local charities and NGOs. Both locally and internationally, QRCS has relief and development operations in numerous countries throughout the Middle East, Asia, Africa, Europe, and Central and South America. Its humanitarian mandates include disaster preparedness, response, recovery, and risk reduction. To mitigate the impact of disasters and improve the livelihoods of affected populations, QRCS provides medical services, food, water, shelter, and other needs of local communities. It is also active at the humanitarian diplomacy and advocacy front. With the help of a vast network of trained, committed staff and volunteers, QRCS aspires to improve the lives of vulnerable people by mobilizing the power of humanity, inspired by the seven Fundamental Principles of humanitarian action: humanity, impartiality, neutrality, independence, voluntary service, unity, and universality.
+- **Budget:** $8,000,000
+- **Matched Regions:** LAC
+- **Summary:** Countries: Argentina, Barbados, Belize, Bolivia (Plurinational State of), Brazil, Chile, Cuba, Dominican Republic, Easter Island (Chile), El Salvador, Jamaica, Mexico, Nicaragua, Peru, Venezuela (Bolivarian Republic of) Source: UN Children's Fund Please refer to the attached file. Highlights Throughout 2025, Latin America and the Caribbean faced overlapping climate-related and public health humanitarian emergencies. Floods, hurricanes, droughts and wildfires across Central America and the Caribbean, the Amazon basin and the Southern Cone disrupted access to safe water, education, health care and protection services, disproportionately affecting children in vulnerable, remote and underserved communities. Humanitarian needs escalated in the final quarter of the year following Hurricane Melissa, a catastrophic Category 5 hurricane that made landfall in Jamaica, before sweeping across Cuba and the Dominican Republic in October. The hurricane affected more than 8 million people across the subregion, including nearly one million children. In response, UNICEF and its partners scaled up emergency preparedness, anticipatory action and response across the region, adapting service delivery in high-risk contexts and reinforcing systems for child protection, health, nutrition, education and WASH in close coordination with national authorities, civil society organizations and other United Nations agencies. At regional and national levels, UNICEF strengthened institutional readiness for future emergencies, including through early-warning systems, simulation exercises, shock-responsive social protection mechanisms, sector coordination platforms and capacity building for government counterparts and frontline responders. Following Hurricane Melissa, UNICEF revised the 2025 Humanitarian Action for Children (HAC) appeal in November, increasing the regional funding requirement from US$19 million to US$42 million. By the end of 2025, approximately US$11.7 million in new humanitarian funding had been mobilized. While this enabled critical response and preparedness efforts, the revised funding requirement was not fully met, underscoring the continued need for sustained humanitarian financing to maintain readiness and respond effectively to future shocks across the region. SITUATION OVERVIEW AND HUMANITARIAN NEEDS In 2025, countries across Latin America and the Caribbean experienced a succession of overlapping climate-related and public health humanitarian emergencies that placed sustained pressure on national systems and disproportionately affected children in vulnerable, remote and underserved communities. Across Central America and the Caribbean, the Amazon basin and Southern Cone, floods, hurricanes, prolonged droughts and wildfires disrupted access to safe water, education, health care and protection services, driving displacement and compounding existing socioeconomic and protection risks. Within this broader regional context, several countries experienced acute climate shocks. Severe flooding affected Argentina, Bolivia, the Dominican Republic, Jamaica and parts of Mexico, damaging homes, schools and health facilities and interrupting essential services for children and families. At the same time, prolonged drought conditions in the Amazon regions of Brazil and Peru reduced water availability, heightened food and nutrition insecurity and increased health risks for Indigenous and riverine communities. These climate extremes also contributed to disease outbreaks, including dengue, chikungunya, oropouche, leptospirosis and yellow fever, further straining overstretched health systems and disproportionately affecting children, pregnant and lactating women and adolescents. The humanitarian situation escalated further in the final quarter of the year. In October 2025, Hurricane Melissa, a catastrophic Category 5 hurricane, struck Jamaica before sweeping across Cuba and the Dominican Republic, causing widespread flooding, infrastructure destruction and prolonged disruption of water, sanitation, energy, health and education systems. The hurricane affected more than 8 million people across the subregion, with millions requiring humanitarian assistance, including nearly one million children. According to EM-DAT, the International Disaster Database, an estimated 10.3 million people were affected by disasters across Latin America and the Caribbean in 2025, underscoring the persistent scale of humanitarian needs. In response, UNICEF and its partners scaled up emergency preparedness, anticipatory action and response throughout the year under the revised HAC appeal. Working in close coordination with national authorities, civil society organisations and United Nations partners, UNICEF adapted service delivery in high-risk contexts, reinforced child protection, health, nutrition, education and WASH systems and expanded capacity building to strengthen timely, coordinated and child-centred response. Across the region, emergency WASH interventions focused on restoring and safeguarding access to safe drinking water through the rehabilitation of systems, water quality monitoring and treatment, and the provision of household- and community-level infrastructure. Education continuity was supported through temporary learning spaces, school rehabilitation and the distribution of learning and early childhood development materials. Child protection and mental health and psychosocial support services were expanded through child-friendly spaces, community-based interventions and training of frontline responders in psychological first aid, safeguarding and protection from sexual exploitation and abuse. At regional and national levels, early-warning systems, simulation exercises, anticipatory action and shock-responsive social protection mechanisms were strengthened to reinforce institutional readiness for future emergencies. Despite these efforts, significant humanitarian needs persist. Recurrent and overlapping shocks continue to strain governments’ resilience capacities, delay recovery and increase risks for children, particularly in contexts facing structural vulnerabilities and high climate exposure. Addressing these challenges requires sustained investment in preparedness, anticipatory action and recovery to ensure that children across Latin America and the Caribbean can access safe water, essential services, protection and education before, during and after emergencies.
 
-### 2. [Indonesia: ASEAN Weekly Disaster Update Week 6 | 16 – 22 Feb 2026](https://reliefweb.int/report/indonesia/asean-weekly-disaster-update-week-6-16-22-feb-2026)
-- **Score:** 0.400 (Medium)
-- **Published:** 2026-02-23
+### 2. [Philippines | Earthquake and Typhoons 2025 - Operation Update #3 (MDRPH057)](https://reliefweb.int/report/philippines/philippines-earthquake-and-typhoons-2025-operation-update-3-mdrph057)
+- **Score:** 0.753 (High)
+- **Published:** 2026-03-02
+- **Source:** ReliefWeb - Updates
+- **Budget:** $13,000,000
+- **Matched Regions:** EAP
+- **Summary:** Country: Philippines Source: International Federation of Red Cross and Red Crescent Societies Please refer to the attached file. A. SITUATION ANALYSIS Description of the crisis In late 2025, the Philippines faced a series of overlapping disasters that significantly escalated the humanitarian needs on the ground. A powerful earthquake in Cebu province marked the onset of the humanitarian crisis, followed by Typhoons Tino (Kalmaegi) and Uwan (Fungwong) in quick succession. The compounding nature of these disasters left a trail of massive destruction across various regions displacing thousands of families, severely disrupting livelihoods, and access to essential services. As a result, the cumulative impacts of these disasters further intensified the vulnerabilities of affected communities, indicating that recovery will be a prolonged process. On 30 September 2025, a magnitude 6.9 earthquake, with thousands of struck off the coast of Bogo City in northern Cebu. The shallow depth of the quake resulted in intense ground shaking, leading to the collapse of homes, damage to roads and bridges, and widespread power outages. Several municipalities in the Cebu province, including Daanbantayan, Medellin, San Remigio, Borbon, and parts of Cebu City, were among the hardest hit. Based on the Situational report no. 30 issued by the National Disaster Risk Reduction and Management Council (NDRRMC) 1 , more than 217,910 families were affected in Cebu Province alone, houses either destroyed or partially damaged. Critical infrastructure such as schools, government buildings, health facilities, and transport networks also sustained significant damage, disrupting access to basic services. Many families were forced to seek temporary shelter in evacuation centres, while others remain in unsafe living conditions due to limited housing options. As communities were just beginning to mobilize relief following the aftermath of the earthquake, Typhoon Tino (Kalmaegi) entered the Philippine Area of Responsibility (PAR) on 02 November 2025. The storm rapidly intensified and made multiple landfalls across Visayas region and Palawan, brought strong winds, heavy rainfall, flooding, and landslides. Multiple areas in Central Cebu, Mimaropa, the Negros Islands Region, and parts of Caraga experienced severe flooding, further damaging homes, livelihoods, and infrastructure. A total of 1,526,203 families were affected, 263,712 people were displaced, and agricultural lands were inundated, affecting food security and income sources for many households. Shortly after, Super Typhoon Uwan swept through Luzon and nearby coastal provinces, unleashing destructive winds, torrential rains, and causing storm surges. This resulted in additional destruction in some of the repeatedly affected areas. The typhoon led to widespread flooding in low-lying and coastal areas, damaged hundreds of thousands of houses, and disrupted power, water, transport, and communication services. Pre-emptive evacuations helped reduce casualties, but prolonged displacement and slow restoration of essential services continued to place pressure on affected communities. According to the NDRRMC Sitrep no. 24, STY Uwan affected approximately 2,242,319 families across various regions, while 355,992 people remained displaced. As a result of these compounded disasters, an estimated 13 million people were left in need of humanitarian assistance. The scale of the needs on the grounds remains immense, as affected communities continue to face urgent needs in shelter, water and sanitation, health care, food security, and livelihood recovery. The complexity of this humanitarian crisis underscores the importance of sustained and coordinated assistance to enable families recover safely, rebuild disrupted livelihoods, and strengthen community resilience.
+
+### 3. [UNICEF Philippines Humanitarian Situation Report No. 7 (Multiple typhoons and earthquakes) (Reporting period: 30 January 2026 to 26 February)](https://reliefweb.int/report/philippines/unicef-philippines-humanitarian-situation-report-no-7-multiple-typhoons-and-earthquakes-reporting-period-30-january-2026-26-february)
+- **Score:** 0.418 (Medium)
+- **Published:** 2026-03-02
 - **Source:** ReliefWeb - Updates
 - **Budget:** Not detected
 - **Matched Regions:** EAP
-- **Summary:** Countries: Indonesia, Philippines, Thailand Source: ASEAN Coordinating Centre for Humanitarian Assistance Please refer to the attached Infographic. REGIONAL SUMMARY: During the eighth week of 2026, a total of 27 disaster events were reported across the ASEAN region, including droughts, floods, landslides, storms, and strong winds in Indonesia, Malaysia, the Philippines, and Thailand, as well as Kanlaon volcanic activity. In Indonesia, Badan Nasional Penanggulangan Bencana ( BNPB ) reported incidents across West Java, Central Java, East Java, West Kalimantan, West Nusa Tenggara, North Sumatra, and Yogyakarta. In Malaysia, Agensi Pengurusan Bencana Negara ( NADMA ) reported flooding situations in Sabah and Sarawak. Meanwhile, in the Philippines, National Disaster Risk Reduction and Management Council ( NDRRMC ) and Department of Social Welfare and Development ( DSWD ) reported flooding incidents in Regions XI, XII, and CARAGA, as well as volcanic activity at Kanlaon Volcano in NIR. In Thailand, Department of Disaster Prevention and Mitigation ( DDPM ) reported storms and strong winds in Nan, Phayao, Chiang Mai, and Mae Hong Son. In addition, Civil Protection Authority ( CPA ) of Timor-Leste reported flooding in Dili, with data collection on impacts and damages currently ongoing. HIGHLIGHT: In the Philippines, continuous moderate to heavy rainfall associated with a shear line caused flooding in several parts of the Davao Region on 19 February 2026. The same weather system continued to bring significant rainfall on 20 February 2026, resulting in further flooding, triggering landslides, and forcing the evacuation of residents in several areas of the CARAGA Region ( PAGASA , DSWD ). As a result of these conditions, according to DSWD , as of 23 February 2026 at 0500H UTC+7, around 197.8K families (740.7K persons) have been affected across 469 barangays in Regions XI and CARAGA, with around 27K families (10K persons) are currently taking temporary shelter in 74 evacuation centres. In terms of damages, reports indicate that 80 houses were damaged, including 27 totally damaged and 53 partially damaged houses. Relevant authorities have undertaken the necessary response actions to address the situation. HYDRO-METEO-CLIMATOLOGICAL: For the past week, data from the ASEAN Specialised Meteorological Centre ( ASMC ) indicated medium to high 7-day average rainfall across Brunei Darussalam, Indonesia, Malaysia, the Philippines, and Timor-Leste. As of this reporting, tropical disturbance INVEST 91B, is currently under monitoring for its potential development over the Bay of Bengal ( JTWC ). GEOPHYSICAL: Six (6) significant earthquakes (M>5.0) were recorded by Indonesia’s Badan Meteorologi, Klimatologi, dan Geofisika ( BMKG ) and Jabatan Meteorologi Malaysia ( JMM ). Among them, a M6.8 earthquake with a depth of 678 km and an epicentre located in the waters off Kota Kinabalu, Sabah, Malaysia, was reported by JMM on 22 February at 1157H UTC+7, reported by AEIC with a magnitude of 7.0 and a depth of 630 km. As of this reporting, no significant impacts or damages have been reported from the earthquake. Mount Marapi (alert level II), Semeru (alert level III), Ili Lewotolok (alert level III), and Ibu (alert level II) in Indonesia, and Taal (alert level 1), Mayon (alert level 3), and Kanlaon (alert level 2) volcanoes in the Philippines reported recent volcanic activity according to Pusat Vulkanologi dan Mitigasi Bencana Geologi ( PVMBG ) and the Philippines Institute of Volcanology and Seismology ( PHIVOLCS ). OUTLOOK: According to the ASEAN Specialised Meteorological Centre ( ASMC ), for the coming week, wetter conditions are predicted over parts of the northeastern Maritime Continent; and drier than usual conditions are predicted over much of the western and central equatorial region. For the regional assessment of extremes, a small increase in chance of very heavy rainfall is predicted over parts of northeastern Borneo; and a small increase in chance of extreme hot conditions is predicted for parts of the equatorial region, in particular parts of Peninsular Malaysia, central Sumatra, Sulawesi, southern Philippines and the Maluku Islands. La Niña conditions are predicted to weaken in February 2026 and transition to ENSO-neutral conditions in March 2026. Models predict the ENSO-neutral conditions to persist at least until May 2026, with either ENSO-neutral continuing or El Niño conditions developing in June-July 2026. Sources: ASEAN Disaster Monitoring & Response System (DMRS); ASEAN Disaster Information Network (ADINet); ASEAN Specialised Meteorological Centre (ASMC); ASEAN Earthquake Information Centre (AEIC); Joint Typhoon Warning Centre (JTWC); Indonesia: BNPB, BMKG, PVMBG; Malaysia: NADMA, JMM; Philippines: NDRRMC, PHIVOLCS, DSWD; Thailand: DDPM; Timor-Leste: CPA; Various news agencies.
+- **Summary:** Country: Philippines Source: UN Children's Fund Please refer to the attached file. Highlights Through its partnership with the Department of Social Welfare and Development, UNICEF provided emergency cash assistance to 5,776 typhoon-affected families in Catanduanes, enabling households to prioritize food, education, health care and shelter repairs. Post-distribution monitoring confirmed that families received the correct amounts, were satisfied with the process, and that government systems enabled timely delivery and learning for future emergency responses. UNICEF strengthened child protection and psychosocial support systems across four municipalities in Catanduanes by completing training-of-trainers on psychological First Aid and advancing integrated child protection and gender-based violence referral pathways. These efforts expanded community-level access to mental health and psychosocial support while reinforcing local government capacity to ensure continuity of care beyond the immediate emergency response. This is the seventh and final situation report on the Philippine Government-led response, supported by UNICEF, to the successive emergencies that unfolded in the second half of 2025, underscoring the United Nation agency for children’s continuous support before, during, and after disasters.
 
-### 3. [DR Congo: Équipe d’Analyse des Crises - RD Congo : Rapport mensuel de déplacement, janvier 2026](https://reliefweb.int/report/democratic-republic-congo/equipe-danalyse-des-crises-rd-congo-rapport-mensuel-de-deplacement-janvier-2026)
+### 4. [Afghanistan: Assisted Afghan Returnees from Pakistan, Iran and other countries | Weekly Update 22 February – 28 February 2026](https://reliefweb.int/report/afghanistan/assisted-afghan-returnees-pakistan-iran-and-other-countries-weekly-update-22-february-28-february-2026)
 - **Score:** 0.400 (Medium)
-- **Published:** 2026-02-23
+- **Published:** 2026-03-02
 - **Source:** ReliefWeb - Updates
+- **Budget:** Not detected
+- **Matched Regions:** MENAP, SAR
+- **Summary:** Countries: Afghanistan, Iran (Islamic Republic of), Pakistan, Tajikistan Source: UN High Commissioner for Refugees Please refer to the attached Infographic.
+
+### 5. [Bangladesh: Common Feedback Platform (CFP): Monthly Sector Report (January 2026)](https://reliefweb.int/report/bangladesh/common-feedback-platform-cfp-monthly-sector-report-january-2026)
+- **Score:** 0.400 (Medium)
+- **Published:** 2026-03-02
+- **Source:** ReliefWeb - Updates
+- **Budget:** Not detected
+- **Matched Regions:** SAR
+- **Summary:** Countries: Bangladesh, Myanmar Source: International Organization for Migration Please refer to the attached Infographic. The Common Feedback Platform (CFP) is a joint inter-agency report that gives an overview of some of the community feedback that is raised within the Cox’s Bazar, Bangladesh, Rohingya response. Through Complaints and Feedback Mechanisms (CFMs), affected communities share challenges regarding programs, services, and the associated humanitarian response. The anonymized data from different organizations are then combined and consolidated on a monthly basis to produce these outputs. The CFP aims to contribute towards Accountability to Affected Populations (AAP) and inform programming. It was developed to improve complaint management and reporting through harmonized referral standards developed directly with the Sectors and main actors responsible for responding to complaints. They are updated regularly to maintain relevance to the current context of assistance. As per the Accountability Manifesto and CFP Referral Guidance, Site Management (SM) agencies and their partners collect and refer data to sectors and service providers at both the camp and Cox’s Bazar coordination levels. The CFP reports reflect data collected through certain CFMs and the usage of these CFMs; they are not necessarily a reflection of the overall needs or satisfaction of the Rohingya living in camps. Therefore, receiving more tickets in a site or for a sector does not consequently mean that there are more needs there; rather, it might imply that there is more CFM coverage, trust in the system, or a larger population in the location where tickets are received. This report is produced by Needs and Population Monitoring (NPM). For more information on the CFP, please contact npmbangladesh@iom.int.
+
+### 6. [Bangladesh: Common Feedback Platform (CFP): Monthly Camp Report (January 2026)](https://reliefweb.int/report/bangladesh/common-feedback-platform-cfp-monthly-camp-report-january-2026)
+- **Score:** 0.400 (Medium)
+- **Published:** 2026-03-02
+- **Source:** ReliefWeb - Updates
+- **Budget:** Not detected
+- **Matched Regions:** SAR
+- **Summary:** Countries: Bangladesh, Myanmar Source: International Organization for Migration Please refer to the attached Infographic. The Common Feedback Platform (CFP) is a joint inter-agency report that gives an overview of some of the community feedback that is raised within the Cox’s Bazar, Bangladesh, Rohingya response. Through Complaints and Feedback Mechanisms (CFMs), affected communities share challenges regarding programs, services, and the associated humanitarian response. The anonymized data from different organizations are then combined and consolidated on a monthly basis to produce these outputs. The CFP aims to contribute towards Accountability to Affected Populations (AAP) and inform programming. It was developed to improve complaint management and reporting through harmonized referral standards developed directly with the Sectors and main actors responsible for responding to complaints. They are updated regularly to maintain relevance to the current context of assistance. As per the Accountability Manifesto and CFP Referral Guidance, Site Management (SM) agencies and their partners collect and refer data to sectors and service providers at both the camp and Cox’s Bazar coordination levels. The CFP reports reflect data collected through certain CFMs and the usage of these CFMs; they are not necessarily a reflection of the overall needs or satisfaction of the Rohingya living in camps. Therefore, receiving more tickets in a site or for a sector does not consequently mean that there are more needs there; rather, it might imply that there is more CFM coverage, trust in the system, or a larger population in the location where tickets are received. This report is produced by Needs and Population Monitoring (NPM). For more information on the CFP, please contact npmbangladesh@iom.int.
+
+### 7. [WHO Afghanistan strengthens emergency care for communities in Balkh](https://reliefweb.int/report/afghanistan/who-afghanistan-strengthens-emergency-care-communities-balkh)
+- **Score:** 0.400 (Medium)
+- **Published:** 2026-03-02
+- **Source:** ReliefWeb - Updates
+- **Budget:** Not detected
+- **Matched Regions:** MENAP, SAR
+- **Summary:** Country: Afghanistan Source: World Health Organization 1 March 2026, Kabul, Afghanistan, - WHO Afghanistan has been strengthening emergency care services across the country through its Basic Emergency Care (BEC) training programme, enabling frontline health workers to respond faster and more effectively to trauma and life-threatening emergencies. One of the most recent successfully completed training courses was in Balkh Province, where 54 health professionals from Balkh, Faryab, Jawzjan, Samangan and Sar-e-Pol provinces enhanced their lifesaving skills with the generous support of the People and Government of Japan. For many communities, district hospitals are the only point of care when emergencies happen. To address this, the BEC training focused on practical, hands-on skills that help health workers quickly assess injuries, stabilize patients and organize emergency response systems to save lives before referral to specialized facilities. Aminullah Safi, an emergency room nurse at Sholgara District Hospital in Balkh, applied the skills gained from the training immediately upon returning to his hospital. He implemented practical actions to reorganize surgical and emergency equipment and strengthen trauma management practices. “Before the training, we did our best with the equipment and knowledge we had,” he said. “Now, the knowledge learned has enabled us to use our existing equipment and limited resources much more efficiently, so people in my district no longer have to wait helplessly during emergencies. We are ready to provide lifesaving care from the moment patients arrive.” “Every minute matters in an emergency,” said Dr Edwin Ceniza Salvador, WHO Representative to Afghanistan. “By strengthening the skills of frontline health workers and improving emergency readiness in district hospitals, we are helping save lives where people live - especially in communities far from specialized care. This is the real impact of sustained donor support.” Through continued partnership with Japan and other health partners, WHO Afghanistan is bringing lifesaving emergency care closer to families, reducing preventable deaths and helping hospitals stand ready during emergencies. For more information, please contact: Mariam Amiry RCCE Officer, WHO Afghanistan (Kabul) Mob.: +93 784100496 E-mail: amirym@who.int
+
+### 8. [Supply and delivery of Rice and Cooking Oil for CBPAHA](https://www.ungm.org/Public/Notice/292548)
+- **Score:** 0.400 (Medium)
+- **Published:** 2026-03-02
+- **Source:** United Nations Global Marketplace
+- **Budget:** Not detected
+- **Matched Regions:** MENAP, SAR
+- **Summary:** Supply and delivery of Rice and Cooking Oil for CBPAHA beneficiaries in Kabul International Airport. Note: Only applicable for Afghanistan Vendors.
+
+### 9. [Call for External Collaborator – Modelling Framework for Early Warning System (Indonesia)](https://www.ungm.org/Public/Notice/292541)
+- **Score:** 0.400 (Medium)
+- **Published:** 2026-03-02
+- **Source:** United Nations Global Marketplace
+- **Budget:** Not detected
+- **Matched Regions:** EAP
+- **Summary:** Design and implement a modelling framework to assess whether high-frequency indicators can function as a district-level early warning system. The work includes data cleaning, model estimation, performance evaluation, robustness analysis and production of reproducible code.
+
+### 10. [Humanitarian pressures grow as Cuba continues to struggle with energy shortages](https://news.un.org/feed/view/en/story/2026/02/1167046)
+- **Score:** 0.398 (Low)
+- **Published:** 2026-02-26
+- **Source:** UN News - Global perspective Human stories
 - **Budget:** Not detected
 - **Matched Regions:** LAC
-- **Summary:** Country: Democratic Republic of the Congo Source: Mercy Corps Please refer to the attached file. Tendances de déplacement en janvier 2026 Baisse de 4% du nombre de ménages déplacés en janvier 2026 par rapport au mois précédent selon les alertes rapportées au cours du mois, soit un total de 218 933 ménages déplacés dans les cinq provinces de l’Est de la RDC. Le Nord d-Kivu a recensé 91 023 ménages déplacés, suivi du Sud-Kivu avec 87 247 ménages, du Maniema avec 21 079 ménages, de l’Ituri avec 12 834 ménages et du Tanganyika avec 6 750 ménages. En décembre, 11% des mouvements observés, soit 25 124 ménages, correspondent à des retours vers les localités d’origine, principalement dans le territoire de Mahagi, Djugu (en Ituri), Rutshuru (au Nord-Kivu), Walungu, Uvira et Fizi (au Sud-Kivu). On observe une persistance des tensions armées dans les zones sous contrôle du M23, marquée par des affrontements récurrents, notamment dans les territoires de Rutshuru, Masisi et Walikale. Par ailleurs, la poursuite des combats entre FARDC et ses alliés au Sud-Kivu, continue de provoquer de nouveaux mouvements de population. La province du Nord-Kivu a été la plus fortement affectée par les déplacements, avec les territoires de Rutshuru, Masisi et Walikale fortement touchés par des combats récurrents entre le M23 et les FARDC alliés au VDP et Wazalendo. Ces affrontements, conjugués aux frappes aériennes et à l’intensifaction des opérations M23 contre les FDLR et Nyatura CMC, ont provoqué des déplacements massifs de civils, notamment dans les zones de santé de Kibirizi, Rutshuru, Mweso, Masisi, Kirotshe, Pinga et Kibua. Bien qu’une accalmie relative ait permis le retour d’une partie des ménages dans le territoire de Rutshuru, la tendance générale reste dominée par des déplacements récents et une forte instabilité sécuritaire. Par ailleurs, une intensification de la menace ADF dans le Grand Nord-Kivu a occasionné un déplacement des populations en territoire de Beni. En janvier 2026, les déplacements au Sud-Kivu sont restés élevés, principalement en raison des affrontements persistants entre le M23, les FARDC et leurs alliés, ainsi que des violences impliquant d’autres groupes armés locaux. Les territoires de Mwenga, Walungu, Uvira et Fizi ont été les plus affectés. La situation a également été marquée par des retours limités, souvent motivés par la dégradation des conditions de vie dans les zones d’accueil et par des accalmies sécuritaires localisées, dans un contexte de besoins humanitaires croissants et d’accès toujours contraint. En Ituri, les déplacements sont restés alimentés par l’activisme des groupes armés, notamment la CRP/Zaïre et les ADF, entraînant de nouveaux déplacements à Mahagi et Mambasa. La période a aussi été marquée par des retours localisés, favorisés par des accalmies sécuritaires relatives et la réduction de l’assistance humanitaire, dans un contexte de besoins toujours élevés. Au Tanganyika, les mouvements de population ont été marqués par l’extension du conflit dans le Sud-Kivu, notamment l’avancée du M23 vers Fizi après la prise d’Uvira en décembre. Cette dynamique a entraîné l’arrivée de ménages déplacés en provenance d’Uvira et de Fizi vers Kalemie et les localités du littoral du lac Tanganyika, dans un contexte de recherche de sécurité et de pression croissante sur les zones d’accueil. Dans la province du Maniema, les déplacemen ont été principalement liés aux dynamiques sécuritaires, notamment les tensions entre groupes Maï-Maï et FARDC ainsi que les effets de débordement de la crise M23 depuis le Sud-Kivu. La période a également été marquée par des déplacements provoqués par des aléas climatiques à Kindu, aggravant la vulnérabilité des populations et la pression sur les zones d’accueil.
+- **Summary:** Cuba’s humanitarian situation is worsening as fuel shortages deepen nearly a month after Washington took measures to block oil supplies from entering the Caribbean nation, a senior UN official warned on Wednesday.
 
-### 4. [Iraq: Beyond the Flames: Environmental Impact, Climate Stress, and Community Realities in Basra](https://reliefweb.int/report/iraq/beyond-flames-environmental-impact-climate-stress-and-community-realities-basra)
-- **Score:** 0.400 (Medium)
-- **Published:** 2026-02-23
-- **Source:** ReliefWeb - Updates
+### 11. [‘AI Kid of India’ urges young people to embrace technology](https://news.un.org/feed/view/en/story/2026/02/1167027)
+- **Score:** 0.393 (Low)
+- **Published:** 2026-02-28
+- **Source:** UN News - Global perspective Human stories
 - **Budget:** Not detected
-- **Matched Regions:** MENAP
-- **Summary:** Country: Iraq Source: Aid Gate Organization Please refer to the attached file. This comprehensive assessment, conducted between December 2025 and January 2026, presents evidence-based findings from 1,096 household surveys and eight Focus Group Discussions across Basra Governorate. The report examines the intersection of climate stress, environmental degradation, oil-sector impacts, and community resilience, providing timely insights into one of Iraq’s most climate-vulnerable regions.
+- **Matched Regions:** SAR
+- **Summary:** 16-year-old Raul John Aju – dubbed the “AI Kid of India” at home – is a business prodigy who advises government and industry and has created several innovative AI tools.
 
-### 5. [Afghanistan: Asia and the Pacific 2026 Regional Focus Model (January 2026)](https://reliefweb.int/report/afghanistan/asia-and-pacific-2026-regional-focus-model-january-2026)
-- **Score:** 0.400 (Medium)
-- **Published:** 2026-02-23
-- **Source:** ReliefWeb - Updates
-- **Budget:** Not detected
-- **Matched Regions:** EAP, MENAP, SAR
-- **Summary:** Countries: Afghanistan, Australia, Bangladesh, Bhutan, Brunei Darussalam, Cambodia, China, Democratic People's Republic of Korea, Fiji, India, Indonesia, Japan, Kiribati, Lao People's Democratic Republic (the), Malaysia, Maldives, Marshall Islands, Micronesia (Federated States of), Mongolia, Myanmar, Nauru, Nepal, New Zealand, Pakistan, Palau, Papua New Guinea, Philippines, Republic of Korea, Samoa, Singapore, Somalia, Sri Lanka, Thailand, Timor-Leste, Tonga, Tuvalu, Vanuatu, Viet Nam Source: UN Office for the Coordination of Humanitarian Affairs Please refer to the attached Infographic. A key challenge faced by humanitarian agencies is how to ensure that limited available resources are allocated where they are most needed and are efficiently delivered in a principled manner. Decisions to allocate resources must strike a balance between meeting the immediate needs of crisis affected communities and supporting efforts to strengthen resilience and response preparedness to future emergencies. To support humanitarian partners address some of these challenges, the OCHA Regional Office for Asia and the Pacific (ROAP) produces the Regional Focus Model (RFM). The model is based on INFORM, a global risk index that identifies and analyzes where crises requiring international assistance may occur. It can be used to support decisions about disaster risk reduction, emergency preparedness and response. The model identifies hazard-prone countries that combine high vulnerability and low capacity to respond, and are therefore more likely to request and accept support from the international community. The model also includes a "Humanitarian" component, reflecting issues more directly related to OCHA's coordination work. This humanitarian component is combined with INFORM to produce a Focus score. The result is to provide a practical tool to inform and guide disaster managers, by providing an evidence base on which to base discussions and prioritization. In 2026, the RFM covers analysis of 38 countries in the Asia-Pacific region under ROAP in Bangkok, Thailand and the Office of the Pacific (OP) in Suva, Fiji.
-
-### 6. [ITB#135790 Package # 31 – AF2 WSM: Construction of 1. Khaibar and 2. Chelgazi Check Dams in 1. Khaibar and 2. Chelgazi Districts of Faryab Province, North/Mazar Regional Office of Afghanistan](https://www.ungm.org/Public/Notice/291877)
-- **Score:** 0.400 (Medium)
-- **Published:** 2026-02-23
-- **Source:** United Nations Global Marketplace
+### 12. [Fears grow for ordinary Afghans after further clashes with Pakistan](https://news.un.org/feed/view/en/story/2026/02/1167049)
+- **Score:** 0.387 (Low)
+- **Published:** 2026-02-27
+- **Source:** UN News - Global perspective Human stories
 - **Budget:** Not detected
 - **Matched Regions:** MENAP, SAR
-- **Summary:** ITB#135790 Package # 31 – AF2 WSM: Construction of 1. Khaibar and 2. Chelgazi Check Dams in 1. Khaibar and 2. Chelgazi Districts of Faryab Province, North/Mazar Regional Office of Afghanistan.
+- **Summary:** Reports on Friday that major cities in Afghanistan have been bombed by the Pakistan military in a new escalation between the two countries have raised fears for civilians already struggling under the harsh rule of the de facto Taliban authorities.
 
-### 7. [ITB#135789 Package # 29 – AF2 WSM: Construction of 1. Alburs and 2. Marmul Check Dams in 1. Alburs and 2. Marmul Districts of Balkh Province, North/Mazar Regional Office of Afghanistan](https://www.ungm.org/Public/Notice/291875)
-- **Score:** 0.400 (Medium)
-- **Published:** 2026-02-23
-- **Source:** United Nations Global Marketplace
+### 13. [Today's top news: Afghanistan, Occupied Palestinian Territory, Sudan, Niger](https://www.unocha.org/news/todays-top-news-afghanistan-occupied-palestinian-territory-sudan-niger)
+- **Score:** 0.387 (Low)
+- **Published:** 2026-02-27
+- **Source:** OCHA - United Nations Office for the Coordination of Humanitarian Affairs
 - **Budget:** Not detected
 - **Matched Regions:** MENAP, SAR
-- **Summary:** ITB#135789 Package # 29 – AF2 WSM: Construction of 1. Alburs and 2. Marmul Check Dams in 1. Alburs and 2. Marmul Districts of Balkh Province, North/Mazar Regional Office of Afghanistan
+- **Summary:** Today's top news: Afghanistan, Occupied Palestinian Territory, Sudan, Niger NER_102025_UNOCHA-Ner_102025_UNOCHA-Ner_102025_UNOCHA-0060.jpg Jaspreet Kindra 27 Feb. 2026 4.51 p.m. # Afghanistan
 
-### 8. [Establishment of Blanket Purchase Agreements (BPAs) for Cleaning and Accommodation Items for UNOPS Afghanistan (2 Lots)](https://www.ungm.org/Public/Notice/291876)
-- **Score:** 0.400 (Medium)
-- **Published:** 2026-02-23
-- **Source:** United Nations Global Marketplace
+### 14. [Afghanistan Humanitarian Fund supports families facing a harsh winter](https://www.unocha.org/news/afghanistan-humanitarian-fund-supports-families-facing-harsh-winter)
+- **Score:** 0.387 (Low)
+- **Published:** 2026-02-27
+- **Source:** OCHA - United Nations Office for the Coordination of Humanitarian Affairs
 - **Budget:** Not detected
 - **Matched Regions:** MENAP, SAR
-- **Summary:** Tender description: Establishment of Blanket Purchase Agreements (BPAs) for Cleaning and Accommodation Items for UNOPS Afghanistan (2 Lots) ----- IMPORTANT NOTE: Interested vendors must respond to this tender using the UNOPS eSourcing system , via the UNGM portal. In order to access the full UNOPS tender details, request clarifications on the tender, and submit a vendor response to a tender using the system, vendors need to be registered as a UNOPS vendor at the UNGM portal and be logged into UNGM. For guidance on how to register on UNGM and submit responses to UNOPS tenders in the UNOPS eSourcing system, please refer to the user guide and other resources available at: https://esourcing.unops.org/#/Help/Guides Interested in improving your knowledge of what UNOPS procures, how we procure and how to become a vendor to supply to our organization? Learn more about our free online course on “Doing business with UNOPS” here
+- **Summary:** Afghanistan Humanitarian Fund supports families facing a harsh winter AFG_102023_UNOCHA_08227_KBG.jpg Jaspreet Kindra 27 Feb. 2026 2.49 p.m.
 
-### 9. [Grain ATMs and hunger maps: AI innovations spotlighted at UN agency showcase in India](https://news.un.org/feed/view/en/story/2026/02/1166992)
+### 15. [World News in Brief: Arab economies rise, rights experts call for police reform in India, Ukraine school closures, Myanmar airstrikes](https://news.un.org/feed/view/en/story/2026/02/1167035)
 - **Score:** 0.373 (Low)
+- **Published:** 2026-02-25
+- **Source:** UN News - Global perspective Human stories
+- **Budget:** Not detected
+- **Matched Regions:** SAR
+- **Summary:** A new UN report forecasts that the Arab region is seeing a gradual economic recovery despite continuing geopolitical uncertainties.
+
+### 16. [Grain ATMs and hunger maps: AI innovations spotlighted at UN agency showcase in India](https://news.un.org/feed/view/en/story/2026/02/1166992)
+- **Score:** 0.327 (Low)
 - **Published:** 2026-02-18
 - **Source:** UN News - Global perspective Human stories
 - **Budget:** Not detected
 - **Matched Regions:** SAR
 - **Summary:** Artificial intelligence solutions that transform the way food assistance reaches people facing hunger were on display during an exhibition at an AI meeting this week in New Delhi, India.
-
-### 10. [Supply and delivery of materials for 10 workshops at Ninawa Agriculture School and Intisar Vocational School in Ninewa, Iraq.](https://www.ungm.org/Public/Notice/289708)
-- **Score:** 0.227 (Low)
-- **Published:** 2026-01-28
-- **Source:** United Nations Global Marketplace
-- **Budget:** Not detected
-- **Matched Regions:** MENAP
-- **Summary:** UNESCO Invitation to Bid (ITB) – Ref: IRQ/ITB/26/08 Date: 28 January 2026 Deadline for Submission: 27 February 2026, 18:00 Baghdad Time Submission Email: baghdad.proc@unesco.org Scope: Supply and delivery of materials for 10 workshops at Ninawa Agriculture School and Intisar Vocational School in Ninewa, Iraq.
 
 
 ## Run Metadata
